@@ -4,15 +4,24 @@ import { Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
-import { Col, Card, ButtonGroup, Button, Alert, Table } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Card,
+  ButtonGroup,
+  Button,
+  Alert,
+  Table
+} from "react-bootstrap";
 
 const Country = () => {
   const { countryCode } = useParams();
 
-  console.log("log", countryCode);
-
   return (
     <React.Fragment>
+      <Col lg={12}>
+        <Today countryCode={countryCode} />
+      </Col>
       <Col lg={3}>
         <Card>
           <Card.Header as="h5">Current numbers</Card.Header>
@@ -26,11 +35,68 @@ const Country = () => {
       <Col>
         <HistoricalChart countryCode={countryCode} />
       </Col>
+      <Col lg={12} style={{ marginTop: "20px" }}>
+        <Card>
+          <Card.Header as="h5">Latest news</Card.Header>
+          <Card.Body>
+            <Card.Text>
+              <News countryCode={countryCode} />
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      </Col>
     </React.Fragment>
   );
 };
 
 export default Country;
+
+const Today = ({ countryCode }) => {
+  return (
+    <Fetch
+      url={`https://thevirustracker.com/free-api?countryTotal=${countryCode}`}
+    >
+      {({ fetching, failed, data }) => {
+        if (fetching) {
+          return (
+            <div>
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            </div>
+          );
+        }
+
+        if (failed) {
+          return (
+            <div>Couldn't load data. Please try again in a few minutes.</div>
+          );
+        }
+
+        if (data) {
+          return (
+            <Card>
+              <Card.Header as="h5">
+                Today in {data.countrydata[0].info.title}{" "}
+              </Card.Header>
+              <Card.Body>
+                <Card.Text>
+                  <Row>
+                    <Col>New Cases</Col>
+                    <Col>
+                      <i class="fas fa-book-dead"></i> Deaths
+                    </Col>
+                    <Col>Deaths</Col>
+                  </Row>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          );
+        }
+      }}
+    </Fetch>
+  );
+};
 
 const HistoricalChart = ({ countryCode }) => {
   const [days, setDays] = useState(7);
@@ -42,7 +108,6 @@ const HistoricalChart = ({ countryCode }) => {
       intersect: false,
       callbacks: {
         title: (tooltipItems, data) => {
-          console.log("title", tooltipItems[0].xLabel);
           return moment(tooltipItems[0].xLabel)
             .utc()
             .format("MMMM DD, YYYY");
@@ -213,7 +278,8 @@ const CurrentTable = ({ countryCode }) => {
         if (data) {
           return (
             <React.Fragment>
-              <h1>{data.countrydata[0].info.title}</h1>
+              <h1>{data.countrydata[0].info.title} </h1>
+              <hr></hr>
               <h4>Today:</h4>
               <Table striped bordered hover size="sm">
                 <tbody>
@@ -294,25 +360,62 @@ const CurrentTable = ({ countryCode }) => {
                 </tbody>
               </Table>
             </React.Fragment>
-            // <div>
-            //   <div>
-            //     New Cases Today: {data.countrydata[0].total_new_cases_today}
-            //   </div>
-            //   <div>
-            //     New Deaths Today: {data.countrydata[0].total_new_deaths_today}
-            //   </div>
-            //   <div>
-            //     Total Active Cases: {data.countrydata[0].total_active_cases}
-            //   </div>
-            //   <div>
-            //     Total Serious Cases: {
-            //   </div>
-            // </div>
           );
         }
-
-        return null;
       }}
     </Fetch>
   );
 };
+
+const News = ({ countryCode }) => {
+  return (
+    <Fetch
+      url={`https://thevirustracker.com/free-api?countryTotal=${countryCode}`}
+    >
+      {({ fetching, failed, data }) => {
+        if (fetching) {
+          return (
+            <div>
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            </div>
+          );
+        }
+
+        if (failed) {
+          return (
+            <div>Couldn't load data. Please try again in a few minutes.</div>
+          );
+        }
+
+        if (data) {
+          const news = data.countrynewsitems[0];
+          return (
+            <Row>
+              {Object.keys(news)
+                .slice(-6, -1)
+                .map(index => {
+                  const item = news[index];
+                  return (
+                    <Col>
+                      <Card>
+                        <Card.Img variant="top" src={item.image} />
+                        <Card.Body>
+                          <Card.Title>{decodeURI(item.title)}</Card.Title>
+                          <Card.Text>{item.time}</Card.Text>
+                          <a href={item.url}>Read more</a>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  );
+                })}
+            </Row>
+          );
+        }
+      }}
+    </Fetch>
+  );
+};
+
+export { News };
