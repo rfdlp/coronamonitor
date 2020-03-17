@@ -14,7 +14,18 @@ const Navigation = props => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link href="/">Global</Nav.Link>
+          <Nav.Link href="/">About</Nav.Link>
         </Nav>
+
+        <a title="Buy me a coffee!" className="kofi-button" href="/about">
+          <span class="kofitext">
+            <img
+              src="https://ko-fi.com/img/cup-border.png"
+              class="kofiimg"
+              alt="Coffee"
+            />
+          </span>
+        </a>
         <Typeahead
           id="search-country"
           onChange={selected => {
