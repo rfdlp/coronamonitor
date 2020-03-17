@@ -375,7 +375,13 @@ const News = ({ countryCode }) => {
                         <Card.Body>
                           <Card.Title>{decodeURI(item.title)}</Card.Title>
                           <Card.Text>{item.time}</Card.Text>
-                          <a href={item.url}>Read more</a>
+                          <a
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Read more
+                          </a>
                         </Card.Body>
                       </Card>
                     </Col>

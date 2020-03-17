@@ -4,12 +4,18 @@ import { withRouter } from "react-router-dom";
 import countryList from "react-select-country-list";
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
+import logo from "../pages/logo192.png";
 
 const Navigation = props => {
   const countryListData = countryList().getData();
   return (
     <Navbar bg="light" expand="lg">
       <Navbar.Brand href="#home">
+        <img
+          src={logo}
+          alt="nCoverage"
+          style={{ width: "1.3em", marginRight: "4px" }}
+        />
         <strong style={{ color: "#a83e14" }}>nCov</strong>
         <i>erage</i>
       </Navbar.Brand>
@@ -35,6 +41,7 @@ const Navigation = props => {
             if (selected[0]) props.history.push(`/${selected[0].value}`);
           }}
           placeholder="Search country"
+          autocomplete={false}
           options={countryListData}
         />
         {/* <Form inline onSubmit={handleSubmit}>
