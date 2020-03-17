@@ -17,7 +17,7 @@ const Navigation = (props) => {
         </Nav>
         <Typeahead id="search-country"
           onChange={(selected) => {
-            props.history.push(`/${selected[0].value}`)
+            if (selected[0]) props.history.push(`/${selected[0].value}`)
           }}
           options={countryListData}
         />
