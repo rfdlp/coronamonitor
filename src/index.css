@@ -177,3 +177,23 @@ a.kofi-button:active {
     transform: rotate(0) scale(1);
   }
 }
+
+[class*="col"] > span.numbers {
+  font-size: 3em;
+}
+.mobile-only-search {
+  display: block;
+}
+@media only screen and (max-device-width: 736px) {
+  [class*="col"] > span.numbers {
+    font-size: 2em;
+  }
+
+  .historical-card {
+    margin-top: 20px;
+  }
+
+  .mobile-only-search {
+    display: block;
+  }
+}

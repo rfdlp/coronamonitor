@@ -76,7 +76,13 @@ const Summary = ({ countryCode }) => {
               <Card.Body>
                 <Card.Text>
                   <Row>
-                    <Col style={{ textAlign: "center" }}>
+                    <Col
+                      xs={6}
+                      sm={4}
+                      lg={4}
+                      md={4}
+                      style={{ textAlign: "center" }}
+                    >
                       <span style={{ fontSize: "3em", color: "#4271b3" }}>
                         <i class="fas fa-clipboard-list"></i>
                         <br />
@@ -84,7 +90,13 @@ const Summary = ({ countryCode }) => {
                       </span>
                       <br /> Total Cases
                     </Col>
-                    <Col style={{ textAlign: "center" }}>
+                    <Col
+                      xs={6}
+                      sm={4}
+                      lg={4}
+                      md={4}
+                      style={{ textAlign: "center" }}
+                    >
                       <span style={{ fontSize: "3em", color: "#6ee6a4" }}>
                         <i class="fas fa-file-medical-alt"></i>
                         <br />
@@ -92,7 +104,13 @@ const Summary = ({ countryCode }) => {
                       </span>
                       <br /> Total Recovered
                     </Col>
-                    <Col style={{ textAlign: "center" }}>
+                    <Col
+                      xs={6}
+                      sm={4}
+                      lg={4}
+                      md={4}
+                      style={{ textAlign: "center" }}
+                    >
                       <span style={{ fontSize: "3em", color: "#f0d318" }}>
                         <i class="fas fa-heartbeat"></i>
                         <br />
@@ -100,7 +118,13 @@ const Summary = ({ countryCode }) => {
                       </span>
                       <br /> Total Unresolved
                     </Col>
-                    <Col style={{ textAlign: "center" }}>
+                    <Col
+                      xs={6}
+                      sm={6}
+                      lg={6}
+                      md={6}
+                      style={{ textAlign: "center" }}
+                    >
                       <span style={{ fontSize: "3em", color: "#f5972c" }}>
                         <i class="fas fa-procedures"></i>
                         <br />
@@ -108,7 +132,13 @@ const Summary = ({ countryCode }) => {
                       </span>
                       <br /> Total Serious
                     </Col>
-                    <Col style={{ textAlign: "center" }}>
+                    <Col
+                      xs={12}
+                      sm={6}
+                      lg={6}
+                      md={6}
+                      style={{ textAlign: "center" }}
+                    >
                       <span style={{ fontSize: "3em", color: "#ff3030" }}>
                         <i class="fas fa-book-dead"></i>
                         <br />
@@ -159,7 +189,7 @@ const HistoricalChart = ({ countryCode }) => {
     }
   };
   return (
-    <Card>
+    <Card className="historical-card">
       <Card.Header as="h5">Historical data</Card.Header>
       <Card.Body>
         <Card.Text>
@@ -225,8 +255,8 @@ const HistoricalChart = ({ countryCode }) => {
 
               if (data && data.timelineitems) {
                 const keys = Object.keys(data.timelineitems[0]).slice(
-                  -(days + 2),
-                  -2
+                  -(days + 1),
+                  -1
                 );
 
                 const chartData = {
@@ -312,22 +342,36 @@ const Today = ({ countryCode }) => {
               </Card.Header>
               <Card.Body>
                 <Card.Text>
-                  <Container style={{ textAlign: "center" }}>
-                    <span style={{ fontSize: "3em", color: "#4271b3" }}>
-                      <i class="fas fa-plus-square"></i>
-                      <br />
-                      {data.countrydata[0].total_new_cases_today}
-                    </span>
-                    <br /> New Cases
-                  </Container>
-                  <Container style={{ textAlign: "center" }}>
-                    <span style={{ fontSize: "3em", color: "#ff3030" }}>
-                      <i class="fas fa-book-dead"></i>
-                      <br />
-                      {data.countrydata[0].total_new_deaths_today}
-                    </span>
-                    <br /> New Deaths
-                  </Container>
+                  <Row>
+                    <Col
+                      xs={6}
+                      sm={6}
+                      md={12}
+                      lg={12}
+                      style={{ textAlign: "center" }}
+                    >
+                      <span className="numbers" style={{ color: "#4271b3" }}>
+                        <i class="fas fa-plus-square"></i>
+                        <br />
+                        {data.countrydata[0].total_new_cases_today}
+                      </span>
+                      <br /> New Cases
+                    </Col>
+                    <Col
+                      xs={6}
+                      sm={6}
+                      md={12}
+                      lg={12}
+                      style={{ textAlign: "center" }}
+                    >
+                      <span className="numbers" style={{ color: "#ff3030" }}>
+                        <i class="fas fa-book-dead"></i>
+                        <br />
+                        {data.countrydata[0].total_new_deaths_today}
+                      </span>
+                      <br /> New Deaths
+                    </Col>
+                  </Row>
                 </Card.Text>
               </Card.Body>
             </Card>
