@@ -4,6 +4,7 @@ import { Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
+import AdSense from 'react-adsense';
 import {
   Row,
   Col,
@@ -23,6 +24,16 @@ const Country = () => {
       <Col lg={12}>
         <Summary countryCode={countryCode} />
       </Col>
+      <div>
+        {/* <AdSense.Google
+          client='ca-pub-7292810486004926'
+          slot='7806394673'
+          style={{ display: 'block' }}
+          format='auto'
+          responsive='true'
+          layoutKey='-gw-1+2a-9x+5c'
+        /> */}
+      </div>
       <Col lg={3}>
         <Today countryCode={countryCode} />
       </Col>
