@@ -1,7 +1,12 @@
 import React from "react";
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
+import countryList from 'react-select-country-list'
+import { Typeahead } from 'react-bootstrap-typeahead';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 
-const Navigation = () => {
+const Navigation = (props) => {
+  const countryListData = countryList().getData();
   return (
     <Navbar bg="light" expand="lg">
       <Navbar.Brand href="#home">nCoV-2019 Statistics</Navbar.Brand>
@@ -10,13 +15,19 @@ const Navigation = () => {
         <Nav className="mr-auto">
           <Nav.Link href="/">Global</Nav.Link>
         </Nav>
-        <Form inline>
+        <Typeahead id="search-country"
+          onChange={(selected) => {
+            props.history.push(`/${selected[0].value}`)
+          }}
+          options={countryListData}
+        />
+        {/* <Form inline onSubmit={handleSubmit}>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant="outline-success">Search</Button>
-        </Form>
+        </Form> */}
       </Navbar.Collapse>
     </Navbar>
   );
 };
 
-export default Navigation;
+export default withRouter(Navigation);

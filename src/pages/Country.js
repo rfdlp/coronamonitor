@@ -9,8 +9,6 @@ import { Col, Card, ButtonGroup, Button, Alert, Table } from "react-bootstrap";
 const Country = () => {
   const { countryCode } = useParams();
 
-  console.log("log", countryCode);
-
   return (
     <React.Fragment>
       <Col lg={3}>
@@ -42,7 +40,6 @@ const HistoricalChart = ({ countryCode }) => {
       intersect: false,
       callbacks: {
         title: (tooltipItems, data) => {
-          console.log("title", tooltipItems[0].xLabel);
           return moment(tooltipItems[0].xLabel)
             .utc()
             .format("MMMM DD, YYYY");
