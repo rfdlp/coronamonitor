@@ -23,10 +23,9 @@ const Country = () => {
       <Col lg={12}>
         <Summary countryCode={countryCode} />
       </Col>
-      <Col lg={3}>
+      <Col lg={12}>
         <Today countryCode={countryCode} />
       </Col>
-      <Col>{/* <HistoricalChart countryCode={countryCode} /> */}</Col>
     </React.Fragment>
   );
 };
@@ -62,36 +61,41 @@ const Summary = ({ countryCode }) => {
                 <Card.Text>
                   <Row>
                     <Col style={{ textAlign: "center" }}>
-                      <span style={{ fontSize: "4em", color: "#4271b3" }}>
-                        <i class="fas fa-clipboard-list"></i>{" "}
+                      <span style={{ fontSize: "3em", color: "#4271b3" }}>
+                        <i class="fas fa-clipboard-list"></i>
+                        <br />
                         {data.results[0].total_cases}
                       </span>
                       <br /> Total Cases
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <span style={{ fontSize: "4em", color: "#6ee6a4" }}>
-                        <i class="fas fa-file-medical-alt"></i>{" "}
+                      <span style={{ fontSize: "3em", color: "#6ee6a4" }}>
+                        <i class="fas fa-file-medical-alt"></i>
+                        <br />
                         {data.results[0].total_recovered}
                       </span>
                       <br /> Total Recovered
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <span style={{ fontSize: "4em", color: "#f0d318" }}>
-                        <i class="fas fa-heartbeat"></i>{" "}
+                      <span style={{ fontSize: "3em", color: "#f0d318" }}>
+                        <i class="fas fa-heartbeat"></i>
+                        <br />
                         {data.results[0].total_unresolved}
                       </span>
                       <br /> Total Unresolved
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <span style={{ fontSize: "4em", color: "#f5972c" }}>
-                        <i class="fas fa-procedures"></i>{" "}
+                      <span style={{ fontSize: "3em", color: "#f5972c" }}>
+                        <i class="fas fa-procedures"></i>
+                        <br />
                         {data.results[0].total_serious_cases}
                       </span>
                       <br /> Total Serious
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <span style={{ fontSize: "4em", color: "#ff3030" }}>
-                        <i class="fas fa-book-dead"></i>{" "}
+                      <span style={{ fontSize: "3em", color: "#ff3030" }}>
+                        <i class="fas fa-book-dead"></i>
+                        <br />
                         {data.results[0].total_deaths}
                       </span>
                       <br /> Total Deaths
@@ -104,159 +108,6 @@ const Summary = ({ countryCode }) => {
         }
       }}
     </Fetch>
-  );
-};
-
-const HistoricalChart = ({ countryCode }) => {
-  const [days, setDays] = useState(7);
-
-  const chartOptions = {
-    tooltips: {
-      mode: "index",
-      position: "nearest",
-      intersect: false,
-      callbacks: {
-        title: (tooltipItems, data) => {
-          return moment(tooltipItems[0].xLabel)
-            .utc()
-            .format("MMMM DD, YYYY");
-        }
-      }
-    },
-    scales: {
-      xAxes: [
-        {
-          fill: false,
-          ticks: {
-            fontSize: 10,
-            callback: value =>
-              moment(value)
-                .utc()
-                .format("MMM DD")
-          }
-        }
-      ]
-    }
-  };
-  return (
-    <Card>
-      <Card.Header as="h5">Historical data</Card.Header>
-      <Card.Body>
-        <Card.Text>
-          <ButtonGroup
-            size="sm"
-            aria-label="Filter"
-            style={{ marginBottom: "10px", float: "right" }}
-          >
-            <Button
-              onClick={() => setDays(7)}
-              variant={days === 7 ? "info" : "outline-secondary"}
-            >
-              7D
-            </Button>
-            <Button
-              onClick={() => setDays(14)}
-              variant={days === 14 ? "info" : "outline-secondary"}
-            >
-              14D
-            </Button>
-            <Button
-              onClick={() => setDays(30)}
-              variant={days === 30 ? "info" : "outline-secondary"}
-            >
-              1M
-            </Button>
-            <Button
-              onClick={() => setDays(90)}
-              variant={days === 90 ? "info" : "outline-secondary"}
-            >
-              3M
-            </Button>
-          </ButtonGroup>
-          <Fetch url={`https://thevirustracker.com/timeline/map-data.json`}>
-            {({ fetching, failed, data }) => {
-              if (fetching) {
-                return (
-                  <div>
-                    <Spinner animation="border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </Spinner>
-                  </div>
-                );
-              }
-
-              if (failed) {
-                return (
-                  <div>
-                    Couldn't load data. Please try again in a few minutes.
-                  </div>
-                );
-              }
-
-              if (data && !data.timelineitems) {
-                return (
-                  <Alert key={123} variant="warning">
-                    Problem fetching data. Please try again in a few minutes.
-                  </Alert>
-                );
-              }
-
-              if (data && data.timelineitems) {
-                const keys = Object.keys(data.timelineitems[0]).slice(
-                  -(days + 2),
-                  -2
-                );
-
-                const chartData = {
-                  labels: keys.map(k => new Date(k)),
-                  datasets: [
-                    {
-                      label: "Total Cases",
-                      data: keys.map(k => ({
-                        x: new Date(k),
-                        y: data.timelineitems[0][k].total_cases
-                      })),
-                      borderColor: "#4271b3",
-                      backgroundColor: "#4271b3",
-                      borderWidth: 1,
-                      fill: false,
-                      lineTension: 0
-                    },
-                    {
-                      label: "Total Recoveries",
-                      data: keys.map(k => ({
-                        x: new Date(k),
-                        y: data.timelineitems[0][k].total_recoveries
-                      })),
-                      borderColor: "#6ee6a4",
-                      backgroundColor: "#6ee6a4",
-                      borderWidth: 1,
-                      fill: false,
-                      lineTension: 0
-                    },
-                    {
-                      label: "Total Deaths",
-                      data: keys.map(k => ({
-                        x: new Date(k),
-                        y: data.timelineitems[0][k].total_deaths
-                      })),
-                      borderColor: "#ff3030",
-                      backgroundColor: "#ff3030",
-                      borderWidth: 1,
-                      lineTension: 0
-                    }
-                  ]
-                };
-
-                return <Line data={chartData} options={chartOptions} />;
-              }
-
-              return null;
-            }}
-          </Fetch>
-        </Card.Text>
-      </Card.Body>
-    </Card>
   );
 };
 
@@ -286,20 +137,22 @@ const Today = ({ countryCode }) => {
               <Card.Header as="h5">Today globally</Card.Header>
               <Card.Body>
                 <Card.Text>
-                  <Container style={{ textAlign: "center" }}>
-                    <span style={{ fontSize: "4em", color: "#4271b3" }}>
-                      <i class="fas fa-plus-square"></i>{" "}
-                      {data.results[0].total_new_cases_today}
-                    </span>
-                    <br /> New Cases
-                  </Container>
-                  <Container style={{ textAlign: "center" }}>
-                    <span style={{ fontSize: "4em", color: "#ff3030" }}>
-                      <i class="fas fa-book-dead"></i>{" "}
-                      {data.results[0].total_new_deaths_today}
-                    </span>
-                    <br /> New Deaths
-                  </Container>
+                  <Row>
+                    <Col style={{ textAlign: "center" }}>
+                      <span style={{ fontSize: "3em", color: "#4271b3" }}>
+                        <i class="fas fa-plus-square"></i>{" "}
+                        {data.results[0].total_new_cases_today}
+                      </span>
+                      <br /> New Cases
+                    </Col>
+                    <Col style={{ textAlign: "center" }}>
+                      <span style={{ fontSize: "3em", color: "#ff3030" }}>
+                        <i class="fas fa-book-dead"></i>{" "}
+                        {data.results[0].total_new_deaths_today}
+                      </span>
+                      <br /> New Deaths
+                    </Col>
+                  </Row>
                 </Card.Text>
               </Card.Body>
             </Card>

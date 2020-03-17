@@ -71,42 +71,47 @@ const Summary = ({ countryCode }) => {
           return (
             <Card style={{ marginBottom: "20px" }}>
               <Card.Header as="h5">
-                Summary for {data.countrydata[0].info.title}{" "}
+                Summary for {data.countrydata[0].info.title}
               </Card.Header>
               <Card.Body>
                 <Card.Text>
                   <Row>
                     <Col style={{ textAlign: "center" }}>
-                      <span style={{ fontSize: "4em", color: "#4271b3" }}>
-                        <i class="fas fa-clipboard-list"></i>{" "}
+                      <span style={{ fontSize: "3em", color: "#4271b3" }}>
+                        <i class="fas fa-clipboard-list"></i>
+                        <br />
                         {data.countrydata[0].total_cases}
                       </span>
                       <br /> Total Cases
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <span style={{ fontSize: "4em", color: "#6ee6a4" }}>
-                        <i class="fas fa-file-medical-alt"></i>{" "}
+                      <span style={{ fontSize: "3em", color: "#6ee6a4" }}>
+                        <i class="fas fa-file-medical-alt"></i>
+                        <br />
                         {data.countrydata[0].total_recovered}
                       </span>
                       <br /> Total Recovered
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <span style={{ fontSize: "4em", color: "#f0d318" }}>
-                        <i class="fas fa-heartbeat"></i>{" "}
+                      <span style={{ fontSize: "3em", color: "#f0d318" }}>
+                        <i class="fas fa-heartbeat"></i>
+                        <br />
                         {data.countrydata[0].total_unresolved}
                       </span>
                       <br /> Total Unresolved
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <span style={{ fontSize: "4em", color: "#f5972c" }}>
-                        <i class="fas fa-procedures"></i>{" "}
+                      <span style={{ fontSize: "3em", color: "#f5972c" }}>
+                        <i class="fas fa-procedures"></i>
+                        <br />
                         {data.countrydata[0].total_serious_cases}
                       </span>
                       <br /> Total Serious
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <span style={{ fontSize: "4em", color: "#ff3030" }}>
-                        <i class="fas fa-book-dead"></i>{" "}
+                      <span style={{ fontSize: "3em", color: "#ff3030" }}>
+                        <i class="fas fa-book-dead"></i>
+                        <br />
                         {data.countrydata[0].total_deaths}
                       </span>
                       <br /> Total Deaths
@@ -308,15 +313,17 @@ const Today = ({ countryCode }) => {
               <Card.Body>
                 <Card.Text>
                   <Container style={{ textAlign: "center" }}>
-                    <span style={{ fontSize: "4em", color: "#4271b3" }}>
-                      <i class="fas fa-plus-square"></i>{" "}
+                    <span style={{ fontSize: "3em", color: "#4271b3" }}>
+                      <i class="fas fa-plus-square"></i>
+                      <br />
                       {data.countrydata[0].total_new_cases_today}
                     </span>
                     <br /> New Cases
                   </Container>
                   <Container style={{ textAlign: "center" }}>
-                    <span style={{ fontSize: "4em", color: "#ff3030" }}>
-                      <i class="fas fa-book-dead"></i>{" "}
+                    <span style={{ fontSize: "3em", color: "#ff3030" }}>
+                      <i class="fas fa-book-dead"></i>
+                      <br />
                       {data.countrydata[0].total_new_deaths_today}
                     </span>
                     <br /> New Deaths
