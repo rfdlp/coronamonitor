@@ -11,7 +11,8 @@ import {
   ButtonGroup,
   Button,
   Alert,
-  Table
+  Table,
+  Container
 } from "react-bootstrap";
 
 const Country = () => {
@@ -20,17 +21,10 @@ const Country = () => {
   return (
     <React.Fragment>
       <Col lg={12}>
-        <Today countryCode={countryCode} />
+        <Summary countryCode={countryCode} />
       </Col>
       <Col lg={3}>
-        <Card>
-          <Card.Header as="h5">Current numbers</Card.Header>
-          <Card.Body>
-            <Card.Text>
-              <CurrentTable countryCode={countryCode} />
-            </Card.Text>
-          </Card.Body>
-        </Card>
+        <Today countryCode={countryCode} />
       </Col>
       <Col>
         <HistoricalChart countryCode={countryCode} />
@@ -51,7 +45,7 @@ const Country = () => {
 
 export default Country;
 
-const Today = ({ countryCode }) => {
+const Summary = ({ countryCode }) => {
   return (
     <Fetch
       url={`https://thevirustracker.com/free-api?countryTotal=${countryCode}`}
@@ -75,18 +69,48 @@ const Today = ({ countryCode }) => {
 
         if (data) {
           return (
-            <Card>
+            <Card style={{ marginBottom: "20px" }}>
               <Card.Header as="h5">
-                Today in {data.countrydata[0].info.title}{" "}
+                Summary for {data.countrydata[0].info.title}{" "}
               </Card.Header>
               <Card.Body>
                 <Card.Text>
                   <Row>
-                    <Col>New Cases</Col>
-                    <Col>
-                      <i class="fas fa-book-dead"></i> Deaths
+                    <Col style={{ textAlign: "center" }}>
+                      <span style={{ fontSize: "4em", color: "#4271b3" }}>
+                        <i class="fas fa-clipboard-list"></i>{" "}
+                        {data.countrydata[0].total_cases}
+                      </span>
+                      <br /> Total Cases
                     </Col>
-                    <Col>Deaths</Col>
+                    <Col style={{ textAlign: "center" }}>
+                      <span style={{ fontSize: "4em", color: "#6ee6a4" }}>
+                        <i class="fas fa-file-medical-alt"></i>{" "}
+                        {data.countrydata[0].total_recovered}
+                      </span>
+                      <br /> Total Recovered
+                    </Col>
+                    <Col style={{ textAlign: "center" }}>
+                      <span style={{ fontSize: "4em", color: "#f0d318" }}>
+                        <i class="fas fa-heartbeat"></i>{" "}
+                        {data.countrydata[0].total_unresolved}
+                      </span>
+                      <br /> Total Unresolved
+                    </Col>
+                    <Col style={{ textAlign: "center" }}>
+                      <span style={{ fontSize: "4em", color: "#f5972c" }}>
+                        <i class="fas fa-procedures"></i>{" "}
+                        {data.countrydata[0].total_serious_cases}
+                      </span>
+                      <br /> Total Serious
+                    </Col>
+                    <Col style={{ textAlign: "center" }}>
+                      <span style={{ fontSize: "4em", color: "#ff3030" }}>
+                        <i class="fas fa-book-dead"></i>{" "}
+                        {data.countrydata[0].total_deaths}
+                      </span>
+                      <br /> Total Deaths
+                    </Col>
                   </Row>
                 </Card.Text>
               </Card.Body>
@@ -253,7 +277,7 @@ const HistoricalChart = ({ countryCode }) => {
   );
 };
 
-const CurrentTable = ({ countryCode }) => {
+const Today = ({ countryCode }) => {
   return (
     <Fetch
       url={`https://thevirustracker.com/free-api?countryTotal=${countryCode}`}
@@ -277,89 +301,29 @@ const CurrentTable = ({ countryCode }) => {
 
         if (data) {
           return (
-            <React.Fragment>
-              <h1>{data.countrydata[0].info.title} </h1>
-              <hr></hr>
-              <h4>Today:</h4>
-              <Table striped bordered hover size="sm">
-                <tbody>
-                  <tr>
-                    <td>
-                      <strong>New Cases</strong>
-                    </td>
-                    <td align="center">
+            <Card>
+              <Card.Header as="h5">
+                Today in {data.countrydata[0].info.title}
+              </Card.Header>
+              <Card.Body>
+                <Card.Text>
+                  <Container style={{ textAlign: "center" }}>
+                    <span style={{ fontSize: "4em", color: "#4271b3" }}>
+                      <i class="fas fa-plus-square"></i>{" "}
                       {data.countrydata[0].total_new_cases_today}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>
-                        <i class="fas fa-skull-crossbones"></i> Deaths
-                      </strong>
-                    </td>
-                    <td align="center">
+                    </span>
+                    <br /> New Cases
+                  </Container>
+                  <Container style={{ textAlign: "center" }}>
+                    <span style={{ fontSize: "4em", color: "#ff3030" }}>
+                      <i class="fas fa-book-dead"></i>{" "}
                       {data.countrydata[0].total_new_deaths_today}
-                    </td>
-                  </tr>
-                </tbody>
-              </Table>
-
-              <h4>Summary:</h4>
-              <Table
-                striped
-                bordered
-                hover
-                size="sm"
-                style={{ marginBottom: 0 }}
-              >
-                <tbody>
-                  <tr>
-                    <td>
-                      <strong>Total Cases</strong>
-                    </td>
-                    <td align="center">{data.countrydata[0].total_cases}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Total Recovered</strong>
-                    </td>
-                    <td align="center">
-                      {data.countrydata[0].total_recovered}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Serious Cases</strong>
-                    </td>
-                    <td align="center">
-                      {data.countrydata[0].total_serious_cases}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Total Deaths</strong>
-                    </td>
-                    <td align="center">{data.countrydata[0].total_deaths}</td>
-                  </tr>
-                  {/* <tr>
-                    <td>
-                      <strong>Total Unresolved</strong>
-                    </td>
-                    <td align="center">
-                      {data.countrydata[0].total_unresolved}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Active Cases</strong>
-                    </td>
-                    <td align="center">
-                      {data.countrydata[0].total_active_cases}
-                    </td>
-                  </tr> */}
-                </tbody>
-              </Table>
-            </React.Fragment>
+                    </span>
+                    <br /> New Deaths
+                  </Container>
+                </Card.Text>
+              </Card.Body>
+            </Card>
           );
         }
       }}
