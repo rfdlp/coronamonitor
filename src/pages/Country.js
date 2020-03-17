@@ -47,17 +47,21 @@ export default Country;
 
 const Summary = ({ countryCode }) => {
   return (
+    <Card style={{ marginBottom: "20px" }}>
     <Fetch
       url={`https://thevirustracker.com/free-api?countryTotal=${countryCode}`}
     >
       {({ fetching, failed, data }) => {
         if (fetching) {
           return (
-            <div>
+            <React.Fragment>
+              <Card.Header as="h5">
+                Summary
+              </Card.Header>
               <Spinner animation="border" role="status">
                 <span className="sr-only">Loading...</span>
               </Spinner>
-            </div>
+            </React.Fragment>
           );
         }
 
@@ -69,7 +73,7 @@ const Summary = ({ countryCode }) => {
 
         if (data) {
           return (
-            <Card style={{ marginBottom: "20px" }}>
+            <React.Fragment>
               <Card.Header as="h5">
                 Summary for {data.countrydata[0].info.title}
               </Card.Header>
@@ -119,11 +123,12 @@ const Summary = ({ countryCode }) => {
                   </Row>
                 </Card.Text>
               </Card.Body>
-            </Card>
+            </React.Fragment>
           );
         }
       }}
     </Fetch>
+    </Card>
   );
 };
 
@@ -284,17 +289,21 @@ const HistoricalChart = ({ countryCode }) => {
 
 const Today = ({ countryCode }) => {
   return (
+    <Card>
     <Fetch
       url={`https://thevirustracker.com/free-api?countryTotal=${countryCode}`}
     >
       {({ fetching, failed, data }) => {
         if (fetching) {
           return (
-            <div>
+            <React.Fragment>
+              <Card.Header as="h5">
+                Today
+              </Card.Header>
               <Spinner animation="border" role="status">
                 <span className="sr-only">Loading...</span>
               </Spinner>
-            </div>
+            </React.Fragment>
           );
         }
 
@@ -306,7 +315,7 @@ const Today = ({ countryCode }) => {
 
         if (data) {
           return (
-            <Card>
+            <React.Fragment>
               <Card.Header as="h5">
                 Today in {data.countrydata[0].info.title}
               </Card.Header>
@@ -330,11 +339,12 @@ const Today = ({ countryCode }) => {
                   </Container>
                 </Card.Text>
               </Card.Body>
-            </Card>
+            </React.Fragment>
           );
         }
       }}
     </Fetch>
+    </Card>
   );
 };
 

@@ -34,29 +34,30 @@ export default Country;
 
 const Summary = ({ countryCode }) => {
   return (
-    <Fetch url={`https://thevirustracker.com/free-api?global=stats`}>
-      {({ fetching, failed, data }) => {
-        if (fetching) {
-          return (
-            <div>
-              <Spinner animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-              </Spinner>
-            </div>
-          );
-        }
+    <Card style={{ marginBottom: "20px" }}>
+      <Card.Header as="h5">Global Summary</Card.Header>
+      <Fetch url={`https://thevirustracker.com/free-api?global=stats`}>
+        {({ fetching, failed, data }) => {
+          if (fetching) {
+            return (
+              <div>
+                <Spinner animation="border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
+              </div>
+            );
+          }
 
-        if (failed) {
-          return (
-            <div>Couldn't load data. Please try again in a few minutes.</div>
-          );
-        }
+          if (failed) {
+            return (
+              <div>Couldn't load data. Please try again in a few minutes.</div>
+            );
+          }
 
-        if (data) {
-          console.log("log", data);
-          return (
-            <Card style={{ marginBottom: "20px" }}>
-              <Card.Header as="h5">Global Summary</Card.Header>
+          if (data) {
+            console.log("log", data);
+            return (
+              
               <Card.Body>
                 <Card.Text>
                   <Row>
@@ -103,38 +104,38 @@ const Summary = ({ countryCode }) => {
                   </Row>
                 </Card.Text>
               </Card.Body>
-            </Card>
-          );
-        }
-      }}
-    </Fetch>
+            );
+          }
+        }}
+      </Fetch>
+    </Card>
   );
 };
 
 const Today = ({ countryCode }) => {
   return (
-    <Fetch url={`https://thevirustracker.com/free-api?global=stats`}>
-      {({ fetching, failed, data }) => {
-        if (fetching) {
-          return (
-            <div>
-              <Spinner animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-              </Spinner>
-            </div>
-          );
-        }
+    <Card>
+      <Card.Header as="h5">Today globally</Card.Header>
+      <Fetch url={`https://thevirustracker.com/free-api?global=stats`}>
+        {({ fetching, failed, data }) => {
+          if (fetching) {
+            return (
+              <div>
+                <Spinner animation="border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
+              </div>
+            );
+          }
 
-        if (failed) {
-          return (
-            <div>Couldn't load data. Please try again in a few minutes.</div>
-          );
-        }
+          if (failed) {
+            return (
+              <div>Couldn't load data. Please try again in a few minutes.</div>
+            );
+          }
 
-        if (data) {
-          return (
-            <Card>
-              <Card.Header as="h5">Today globally</Card.Header>
+          if (data) {
+            return (
               <Card.Body>
                 <Card.Text>
                   <Row>
@@ -155,10 +156,10 @@ const Today = ({ countryCode }) => {
                   </Row>
                 </Card.Text>
               </Card.Body>
-            </Card>
-          );
-        }
-      }}
-    </Fetch>
+            );
+          }
+        }}
+      </Fetch>
+    </Card>
   );
 };
