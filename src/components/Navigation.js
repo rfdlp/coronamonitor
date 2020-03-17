@@ -9,7 +9,10 @@ const Navigation = props => {
   const countryListData = countryList().getData();
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">nCoV-2019 Statistics</Navbar.Brand>
+      <Navbar.Brand href="#home">
+        <strong style={{ color: "#a83e14" }}>nCov</strong>
+        <i>erage</i>
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
