@@ -143,7 +143,7 @@ const Today = () => {
                         <br />
                         {data.results[0].total_new_deaths_today}
                       </span>
-                      <br /> Deceased3
+                      <br /> Deceased
                     </Col>
                   </Row>
                 </Card.Text>

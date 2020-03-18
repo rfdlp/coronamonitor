@@ -7,7 +7,8 @@ const About = () => {
       <h3>Contributors</h3>
       <p>
         <a href="https://github.com/rafaeldalpra">rafaeldalpra</a>,{" "}
-        <a href="https://github.com/jonatasdaniel">jonatasdaniel</a>
+        <a href="https://github.com/jonatasdaniel">jonatasdaniel</a>,{" "}
+        <a href="https://github.com/anpenava">anpenava</a>
       </p>
       <h4>Data provided by</h4>
       <p>
