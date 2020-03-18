@@ -241,7 +241,9 @@ const HistoricalChart = ({ countryCode }) => {
       intersect: false,
       callbacks: {
         label: tooltipItem => {
-          return `${Number(tooltipItem.yLabel).toFixed(1)}%`;
+          return tooltipItem.datasetIndex === 3
+            ? `${Number(tooltipItem.yLabel).toFixed(1)}%`
+            : `${Number(tooltipItem.yLabel)}`;
         },
         title: (tooltipItems, data) => {
           return moment(tooltipItems[0].xLabel)
