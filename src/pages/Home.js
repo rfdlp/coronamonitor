@@ -4,16 +4,7 @@ import { Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
-import {
-  Row,
-  Col,
-  Card,
-  ButtonGroup,
-  Button,
-  Alert,
-  Table,
-  Container
-} from "react-bootstrap";
+import { Row, Col, Card } from "react-bootstrap";
 
 const Home = () => {
   return (
@@ -52,18 +43,15 @@ const Summary = () => {
 
         if (data) {
           return (
-            <Card style={{ marginBottom: "20px" }}>
+            <Card
+              className="card card-default card-demo"
+              style={{ marginBottom: "20px" }}
+            >
               <Card.Header as="h5">Global Summary</Card.Header>
               <Card.Body>
                 <Card.Text>
                   <Row>
-                    <Col
-                      xs={6}
-                      sm={4}
-                      lg={4}
-                      md={4}
-                      style={{ textAlign: "center" }}
-                    >
+                    <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#4271b3" }}>
                         <i class="fas fa-clipboard-list"></i>
                         <br />
@@ -71,61 +59,37 @@ const Summary = () => {
                       </span>
                       <br /> Total Cases
                     </Col>
-                    <Col
-                      xs={6}
-                      sm={4}
-                      lg={4}
-                      md={4}
-                      style={{ textAlign: "center" }}
-                    >
+                    <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#6ee6a4" }}>
                         <i class="fas fa-file-medical-alt"></i>
                         <br />
                         {data.results[0].total_recovered}
                       </span>
-                      <br /> Total Recovered
+                      <br /> Recovered
                     </Col>
-                    <Col
-                      xs={6}
-                      sm={4}
-                      lg={4}
-                      md={4}
-                      style={{ textAlign: "center" }}
-                    >
+                    <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#f0d318" }}>
                         <i class="fas fa-heartbeat"></i>
                         <br />
                         {data.results[0].total_unresolved}
                       </span>
-                      <br /> Total Unresolved
+                      <br /> Infected
                     </Col>
-                    <Col
-                      xs={6}
-                      sm={6}
-                      lg={6}
-                      md={6}
-                      style={{ textAlign: "center" }}
-                    >
+                    <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#f5972c" }}>
                         <i class="fas fa-procedures"></i>
                         <br />
                         {data.results[0].total_serious_cases}
                       </span>
-                      <br /> Total Serious
+                      <br /> Serious
                     </Col>
-                    <Col
-                      xs={12}
-                      sm={6}
-                      lg={6}
-                      md={6}
-                      style={{ textAlign: "center" }}
-                    >
+                    <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#ff3030" }}>
                         <i class="fas fa-book-dead"></i>
                         <br />
                         {data.results[0].total_deaths}
                       </span>
-                      <br /> Total Deaths
+                      <br /> Deceased
                     </Col>
                   </Row>
                 </Card.Text>
@@ -160,7 +124,7 @@ const Today = () => {
 
         if (data) {
           return (
-            <Card>
+            <Card className="card card-default card-demo">
               <Card.Header as="h5">Today globally</Card.Header>
               <Card.Body>
                 <Card.Text>
@@ -171,7 +135,7 @@ const Today = () => {
                         <br />
                         {data.results[0].total_new_cases_today}
                       </span>
-                      <br /> New Cases
+                      <br /> Cases
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#ff3030" }}>
@@ -179,7 +143,7 @@ const Today = () => {
                         <br />
                         {data.results[0].total_new_deaths_today}
                       </span>
-                      <br /> New Deaths
+                      <br /> Deceased3
                     </Col>
                   </Row>
                 </Card.Text>

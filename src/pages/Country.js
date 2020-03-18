@@ -4,24 +4,37 @@ import { Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
-import {
-  Row,
-  Col,
-  Card,
-  ButtonGroup,
-  Button,
-  Alert,
-  Table,
-  Container
-} from "react-bootstrap";
+import { Row, Col, Card, ButtonGroup, Button, Alert } from "react-bootstrap";
 
 const Country = () => {
   const { countryCode } = useParams();
+  const storedFavs = localStorage.getItem("ncoverage-favs");
+  const [favourites, setFavourites] = useState(storedFavs || []);
+
+  const addToFavourites = () => {
+    favourites.push(countryCode);
+    localStorage.setItem("ncoverage-favs", JSON.stringify(favourites));
+    setFavourites(favourites);
+  };
+  const removeFromFavourites = () => {
+    let index = favourites.findIndex(k => k === countryCode);
+    if (index > -1) {
+      favourites.splice(index, 1);
+    }
+
+    setFavourites(favourites);
+    localStorage.setItem("ncoverage-favs", JSON.stringify(favourites));
+  };
 
   return (
     <React.Fragment>
       <Col lg={12}>
-        <Summary countryCode={countryCode} />
+        <Summary
+          favourites={favourites}
+          addToFavourites={addToFavourites}
+          countryCode={countryCode}
+          removeFromFavourites={removeFromFavourites}
+        />
       </Col>
       <Col lg={3}>
         <Today countryCode={countryCode} />
@@ -30,7 +43,7 @@ const Country = () => {
         <HistoricalChart countryCode={countryCode} />
       </Col>
       <Col lg={12} style={{ marginTop: "20px" }}>
-        <Card>
+        <Card className="card card-default card-demo">
           <Card.Header as="h5">Latest news</Card.Header>
           <Card.Body>
             <Card.Text>
@@ -45,7 +58,12 @@ const Country = () => {
 
 export default Country;
 
-const Summary = ({ countryCode }) => {
+const Summary = ({
+  addToFavourites,
+  favourites,
+  removeFromFavourites,
+  countryCode
+}) => {
   return (
     <Fetch
       url={`https://thevirustracker.com/free-api?countryTotal=${countryCode}`}
@@ -68,83 +86,65 @@ const Summary = ({ countryCode }) => {
         }
 
         if (data) {
+          // console.log("log summ list", JSON.parse(favourites));
+          console.log("log summ", favourites.includes(countryCode));
           return (
-            <Card style={{ marginBottom: "20px" }}>
+            <Card className="card card-default card-demo">
               <Card.Header as="h5">
-                Summary for {data.countrydata[0].info.title}
+                Summary for <strong>{data.countrydata[0].info.title}</strong>
+                {/* <button
+                  onClick={() =>
+                    favourites.includes(countryCode)
+                      ? removeFromFavourites()
+                      : addToFavourites()
+                  }
+                >
+                  {favourites.includes(countryCode) ? "Remove from" : "Add to"}
+                  Favourites
+                </button> */}
               </Card.Header>
               <Card.Body>
                 <Card.Text>
                   <Row>
-                    <Col
-                      xs={6}
-                      sm={4}
-                      lg={4}
-                      md={4}
-                      style={{ textAlign: "center" }}
-                    >
-                      <span style={{ fontSize: "3em", color: "#4271b3" }}>
+                    <Col style={{ textAlign: "center" }}>
+                      <span className="numbers" style={{ color: "#4271b3" }}>
                         <i class="fas fa-clipboard-list"></i>
                         <br />
                         {data.countrydata[0].total_cases}
                       </span>
                       <br /> Total Cases
                     </Col>
-                    <Col
-                      xs={6}
-                      sm={4}
-                      lg={4}
-                      md={4}
-                      style={{ textAlign: "center" }}
-                    >
-                      <span style={{ fontSize: "3em", color: "#6ee6a4" }}>
+                    <Col style={{ textAlign: "center" }}>
+                      <span className="numbers" style={{ color: "#6ee6a4" }}>
                         <i class="fas fa-file-medical-alt"></i>
                         <br />
                         {data.countrydata[0].total_recovered}
                       </span>
-                      <br /> Total Recovered
+                      <br /> Recovered
                     </Col>
-                    <Col
-                      xs={6}
-                      sm={4}
-                      lg={4}
-                      md={4}
-                      style={{ textAlign: "center" }}
-                    >
-                      <span style={{ fontSize: "3em", color: "#f0d318" }}>
+                    <Col style={{ textAlign: "center" }}>
+                      <span className="numbers" style={{ color: "#f0d318" }}>
                         <i class="fas fa-heartbeat"></i>
                         <br />
                         {data.countrydata[0].total_unresolved}
                       </span>
-                      <br /> Total Unresolved
+                      <br /> Infected
                     </Col>
-                    <Col
-                      xs={6}
-                      sm={6}
-                      lg={6}
-                      md={6}
-                      style={{ textAlign: "center" }}
-                    >
-                      <span style={{ fontSize: "3em", color: "#f5972c" }}>
+                    <Col style={{ textAlign: "center" }}>
+                      <span className="numbers" style={{ color: "#f5972c" }}>
                         <i class="fas fa-procedures"></i>
                         <br />
                         {data.countrydata[0].total_serious_cases}
                       </span>
-                      <br /> Total Serious
+                      <br /> Serious
                     </Col>
-                    <Col
-                      xs={12}
-                      sm={6}
-                      lg={6}
-                      md={6}
-                      style={{ textAlign: "center" }}
-                    >
-                      <span style={{ fontSize: "3em", color: "#ff3030" }}>
+                    <Col style={{ textAlign: "center" }}>
+                      <span className="numbers" style={{ color: "#ff3030" }}>
                         <i class="fas fa-book-dead"></i>
                         <br />
                         {data.countrydata[0].total_deaths}
                       </span>
-                      <br /> Total Deaths
+                      <br /> Deceased
                     </Col>
                   </Row>
                 </Card.Text>
@@ -189,7 +189,7 @@ const HistoricalChart = ({ countryCode }) => {
     }
   };
   return (
-    <Card className="historical-card">
+    <Card className="card card-default card-demo historical-card">
       <Card.Header as="h5">Historical data</Card.Header>
       <Card.Body>
         <Card.Text>
@@ -255,8 +255,8 @@ const HistoricalChart = ({ countryCode }) => {
 
               if (data && data.timelineitems) {
                 const keys = Object.keys(data.timelineitems[0]).slice(
-                  -(days + 1),
-                  -1
+                  -(days + 2),
+                  -2
                 );
 
                 const chartData = {
@@ -336,40 +336,28 @@ const Today = ({ countryCode }) => {
 
         if (data) {
           return (
-            <Card>
+            <Card className="card card-default card-demo">
               <Card.Header as="h5">
-                Today in {data.countrydata[0].info.title}
+                Today in <strong>{data.countrydata[0].info.title}</strong>
               </Card.Header>
               <Card.Body>
                 <Card.Text>
                   <Row>
-                    <Col
-                      xs={6}
-                      sm={6}
-                      md={12}
-                      lg={12}
-                      style={{ textAlign: "center" }}
-                    >
+                    <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#4271b3" }}>
                         <i class="fas fa-plus-square"></i>
                         <br />
                         {data.countrydata[0].total_new_cases_today}
                       </span>
-                      <br /> New Cases
+                      <br /> Cases
                     </Col>
-                    <Col
-                      xs={6}
-                      sm={6}
-                      md={12}
-                      lg={12}
-                      style={{ textAlign: "center" }}
-                    >
+                    <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#ff3030" }}>
                         <i class="fas fa-book-dead"></i>
                         <br />
                         {data.countrydata[0].total_new_deaths_today}
                       </span>
-                      <br /> New Deaths
+                      <br /> Deceased
                     </Col>
                   </Row>
                 </Card.Text>
@@ -414,10 +402,10 @@ const News = ({ countryCode }) => {
                   const item = news[index];
                   return (
                     <Col>
-                      <Card>
+                      <Card className="card card-default card-demo">
                         <Card.Img variant="top" src={item.image} />
                         <Card.Body>
-                          <Card.Title>{decodeURI(item.title)}</Card.Title>
+                          <Card.Title>{unescape(item.title)}</Card.Title>
                           <Card.Text>{item.time}</Card.Text>
                           <a
                             href={item.url}

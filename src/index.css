@@ -12,42 +12,6 @@ code {
     monospace;
 }
 
-/* a.kofi-button {
-  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
-  line-height: 30px !important;
-  min-width: 150px;
-  display: inline-block !important;
-  background-color: #29abe0;
-  padding: 2px 12px !important;
-  text-align: center !important;
-  border-radius: 7px;
-  color: #fff;
-  cursor: pointer;
-  overflow-wrap: break-word;
-  vertical-align: middle;
-  border: 0 none #fff !important;
-  font-family: "Quicksand", Helvetica, Century Gothic, sans-serif !important;
-  text-decoration: none;
-  text-shadow: none;
-  font-weight: 700 !important;
-  font-size: 14px !important;
-  margin-right: 10px;
-}
-a.kofi-button:hover {
-  text-decoration: none;
-  color: #fff;
-}
-img.kofiimg {
-  display: initial !important;
-  vertical-align: middle;
-  padding-top: 0;
-  padding-bottom: 0;
-  border: none;
-  margin: 0 5px 3px 0;
-  content: url(https://ko-fi.com/img/cup-border.png);
-  animation: kofi-wiggle 3s infinite;
-  width: 1.5em;
-} */
 img.kofiimg {
   display: initial !important;
   vertical-align: middle;
@@ -181,8 +145,8 @@ a.kofi-button:active {
 [class*="col"] > span.numbers {
   font-size: 3em;
 }
-.mobile-only-search {
-  display: block;
+.mobile-only {
+  display: none;
 }
 @media only screen and (max-device-width: 736px) {
   [class*="col"] > span.numbers {
@@ -193,7 +157,7 @@ a.kofi-button:active {
     margin-top: 20px;
   }
 
-  .mobile-only-search {
+  .mobile-only {
     display: block;
   }
 }
