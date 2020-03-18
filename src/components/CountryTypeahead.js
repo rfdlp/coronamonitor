@@ -12,7 +12,7 @@ const CountryTypeahead = props => {
         if (selected[0]) props.history.push(`/${selected[0].value}`);
       }}
       placeholder="Search country"
-      autocomplete={false}
+      autocomplete="off"
       options={countryListData}
     />
   );
