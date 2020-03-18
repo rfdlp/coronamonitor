@@ -53,7 +53,7 @@ const Summary = () => {
                   <Row>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#4271b3" }}>
-                        <i class="fas fa-clipboard-list"></i>
+                        <i className="fas fa-clipboard-list"></i>
                         <br />
                         {data.results[0].total_cases}
                       </span>
@@ -61,7 +61,7 @@ const Summary = () => {
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#6ee6a4" }}>
-                        <i class="fas fa-file-medical-alt"></i>
+                        <i className="fas fa-file-medical-alt"></i>
                         <br />
                         {data.results[0].total_recovered}
                       </span>
@@ -69,7 +69,7 @@ const Summary = () => {
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#f0d318" }}>
-                        <i class="fas fa-heartbeat"></i>
+                        <i className="fas fa-heartbeat"></i>
                         <br />
                         {data.results[0].total_unresolved}
                       </span>
@@ -77,7 +77,7 @@ const Summary = () => {
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#f5972c" }}>
-                        <i class="fas fa-procedures"></i>
+                        <i className="fas fa-procedures"></i>
                         <br />
                         {data.results[0].total_serious_cases}
                       </span>
@@ -85,7 +85,7 @@ const Summary = () => {
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#ff3030" }}>
-                        <i class="fas fa-book-dead"></i>
+                        <i className="fas fa-book-dead"></i>
                         <br />
                         {data.results[0].total_deaths}
                       </span>
@@ -131,7 +131,7 @@ const Today = () => {
                   <Row>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#4271b3" }}>
-                        <i class="fas fa-plus-square"></i>
+                        <i className="fas fa-plus-square"></i>
                         <br />
                         {data.results[0].total_new_cases_today}
                       </span>
@@ -139,7 +139,7 @@ const Today = () => {
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#ff3030" }}>
-                        <i class="fas fa-book-dead"></i>
+                        <i className="fas fa-book-dead"></i>
                         <br />
                         {data.results[0].total_new_deaths_today}
                       </span>

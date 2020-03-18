@@ -22,10 +22,10 @@ const About = () => {
           rel="noopener noreferrer"
           target="_blank"
         >
-          <span class="kofitext">
+          <span className="kofitext">
             <img
               src="https://ko-fi.com/img/cup-border.png"
-              class="kofiimg"
+              className="kofiimg"
               alt="Coffee"
             />
             Buy us a Coffee
