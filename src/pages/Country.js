@@ -351,7 +351,7 @@ const HistoricalChart = ({ countryCode }) => {
                   labels: keys.map(k => new Date(k)),
                   datasets: [
                     {
-                      label: "Total Cases",
+                      label: "Cases",
                       data: keys.map(k => ({
                         x: new Date(k),
                         y: data.timelineitems[0][k].total_cases
@@ -363,7 +363,7 @@ const HistoricalChart = ({ countryCode }) => {
                       lineTension: 0
                     },
                     {
-                      label: "Total Recoveries",
+                      label: "Recoveries",
                       data: keys.map(k => ({
                         x: new Date(k),
                         y: data.timelineitems[0][k].total_recoveries
@@ -375,7 +375,7 @@ const HistoricalChart = ({ countryCode }) => {
                       lineTension: 0
                     },
                     {
-                      label: "Total Deaths",
+                      label: "Deceased",
                       data: keys.map(k => ({
                         x: new Date(k),
                         y: data.timelineitems[0][k].total_deaths
