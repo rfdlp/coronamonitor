@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
 import { Row, Col, Card, ButtonGroup, Button, Alert } from "react-bootstrap";
-import NumberFormat from 'react-number-format';
+import NumberFormat from "react-number-format";
 
 const Country = () => {
   const { countryCode } = useParams();
@@ -59,6 +59,49 @@ const Country = () => {
 
 export default Country;
 
+const fatalityLevels = {
+  low: {
+    min: 0,
+    max: 2,
+    color: "low-warning"
+  },
+  med: {
+    min: 2,
+    max: 5,
+    color: "warning"
+  },
+  high: {
+    min: 5,
+    max: 100,
+    color: "danger"
+  }
+};
+const fatalityRateLabel = rate => {
+  let className = "low-warning";
+  if (rate >= fatalityLevels.low.min && rate < fatalityLevels.low.max) {
+    className = fatalityLevels.low.color;
+  } else if (rate >= fatalityLevels.med.min && rate < fatalityLevels.med.max) {
+    className = fatalityLevels.med.color;
+  } else if (
+    rate >= fatalityLevels.high.min &&
+    rate < fatalityLevels.high.max
+  ) {
+    className = fatalityLevels.high.color;
+  }
+
+  return (
+    <strong>
+      <NumberFormat
+        value={rate}
+        displayType={"text"}
+        suffix={"%"}
+        decimalScale={1}
+        className={`text-${className}`}
+      />
+    </strong>
+  );
+};
+
 const Summary = ({
   addToFavourites,
   favourites,
@@ -74,9 +117,7 @@ const Summary = ({
           if (fetching) {
             return (
               <React.Fragment>
-                <Card.Header as="h5">
-                  Summary
-                </Card.Header>
+                <Card.Header as="h5">Summary</Card.Header>
                 <Spinner animation="border" role="status">
                   <span className="sr-only">Loading...</span>
                 </Spinner>
@@ -94,7 +135,16 @@ const Summary = ({
             return (
               <React.Fragment>
                 <Card.Header as="h5">
-                  Summary for <strong>{data.countrydata[0].info.title}</strong>
+                  Summary for <strong>{data.countrydata[0].info.title}</strong>{" "}
+                  -{" "}
+                  <i>
+                    {fatalityRateLabel(
+                      (Number(data.countrydata[0].total_deaths) /
+                        Number(data.countrydata[0].total_cases)) *
+                        100
+                    )}{" "}
+                    Fatality rate.
+                  </i>
                   {/* <button
                     onClick={() =>
                       favourites.includes(countryCode)
@@ -113,7 +163,11 @@ const Summary = ({
                         <span className="numbers" style={{ color: "#4271b3" }}>
                           <i className="fas fa-clipboard-list"></i>
                           <br />
-                          <NumberFormat value={data.countrydata[0].total_cases} thousandSeparator={true} displayType={'text'} />
+                          <NumberFormat
+                            value={data.countrydata[0].total_cases}
+                            thousandSeparator={true}
+                            displayType={"text"}
+                          />
                         </span>
                         <br /> Total Cases
                       </Col>
@@ -121,7 +175,11 @@ const Summary = ({
                         <span className="numbers" style={{ color: "#6ee6a4" }}>
                           <i className="fas fa-file-medical-alt"></i>
                           <br />
-                          <NumberFormat value={data.countrydata[0].total_recovered} thousandSeparator={true} displayType={'text'} />
+                          <NumberFormat
+                            value={data.countrydata[0].total_recovered}
+                            thousandSeparator={true}
+                            displayType={"text"}
+                          />
                         </span>
                         <br /> Recovered
                       </Col>
@@ -129,7 +187,11 @@ const Summary = ({
                         <span className="numbers" style={{ color: "#f0d318" }}>
                           <i className="fas fa-heartbeat"></i>
                           <br />
-                          <NumberFormat value={data.countrydata[0].total_unresolved} thousandSeparator={true} displayType={'text'} />
+                          <NumberFormat
+                            value={data.countrydata[0].total_unresolved}
+                            thousandSeparator={true}
+                            displayType={"text"}
+                          />
                         </span>
                         <br /> Infected
                       </Col>
@@ -137,7 +199,11 @@ const Summary = ({
                         <span className="numbers" style={{ color: "#f5972c" }}>
                           <i className="fas fa-procedures"></i>
                           <br />
-                          <NumberFormat value={data.countrydata[0].total_serious_cases} thousandSeparator={true} displayType={'text'} />
+                          <NumberFormat
+                            value={data.countrydata[0].total_serious_cases}
+                            thousandSeparator={true}
+                            displayType={"text"}
+                          />
                         </span>
                         <br /> Serious
                       </Col>
@@ -145,17 +211,13 @@ const Summary = ({
                         <span className="numbers" style={{ color: "#ff3030" }}>
                           <i className="fas fa-book-dead"></i>
                           <br />
-                          <NumberFormat value={data.countrydata[0].total_deaths} thousandSeparator={true} displayType={'text'} />
+                          <NumberFormat
+                            value={data.countrydata[0].total_deaths}
+                            thousandSeparator={true}
+                            displayType={"text"}
+                          />
                         </span>
                         <br /> Deceased
-                      </Col>
-                      <Col style={{ textAlign: "center" }}>
-                        <span className="numbers" style={{ color: "#ff3030" }}>
-                          <i className="fas fa-book-dead"></i>
-                          <br />
-                          <NumberFormat value={(Number(data.countrydata[0].total_deaths) / Number(data.countrydata[0].total_cases)) * 100} displayType={'text'} suffix={'%'} decimalScale={1} />
-                        </span>
-                        <br /> Death Rate
                       </Col>
                     </Row>
                   </Card.Text>
@@ -178,6 +240,9 @@ const HistoricalChart = ({ countryCode }) => {
       position: "nearest",
       intersect: false,
       callbacks: {
+        label: tooltipItem => {
+          return `${Number(tooltipItem.yLabel).toFixed(1)}%`;
+        },
         title: (tooltipItems, data) => {
           return moment(tooltipItems[0].xLabel)
             .utc()
@@ -186,6 +251,17 @@ const HistoricalChart = ({ countryCode }) => {
       }
     },
     scales: {
+      yAxes: [
+        {},
+        {
+          position: "right",
+          id: "rate",
+          ticks: {
+            fontSize: 10,
+            callback: value => `${Number(value).toFixed(1)}%`
+          }
+        }
+      ],
       xAxes: [
         {
           fill: false,
@@ -308,6 +384,23 @@ const HistoricalChart = ({ countryCode }) => {
                       backgroundColor: "#ff3030",
                       borderWidth: 1,
                       lineTension: 0
+                    },
+                    {
+                      yAxisID: "rate",
+                      label: "Fatality Rate",
+                      data: keys.map(k => ({
+                        x: new Date(k),
+                        y:
+                          (Number(data.timelineitems[0][k].total_deaths) /
+                            Number(data.timelineitems[0][k].total_cases)) *
+                          100
+                      })),
+                      borderColor: "rgba(161, 35, 10, 0.1)",
+                      backgroundColor: "rgba(161, 35, 10, 0.1)",
+                      // fill: false,
+                      borderWidth: 1,
+                      lineTension: 0,
+                      hidden: true
                     }
                   ]
                 };
@@ -334,9 +427,7 @@ const Today = ({ countryCode }) => {
           if (fetching) {
             return (
               <React.Fragment>
-                <Card.Header as="h5">
-                  Today
-                </Card.Header>
+                <Card.Header as="h5">Today</Card.Header>
                 <Spinner animation="border" role="status">
                   <span className="sr-only">Loading...</span>
                 </Spinner>
@@ -363,7 +454,11 @@ const Today = ({ countryCode }) => {
                         <span className="numbers" style={{ color: "#4271b3" }}>
                           <i className="fas fa-plus-square"></i>
                           <br />
-                          <NumberFormat value={data.countrydata[0].total_new_cases_today} thousandSeparator={true} displayType={'text'} />
+                          <NumberFormat
+                            value={data.countrydata[0].total_new_cases_today}
+                            thousandSeparator={true}
+                            displayType={"text"}
+                          />
                         </span>
                         <br /> Cases
                       </Col>
@@ -371,7 +466,11 @@ const Today = ({ countryCode }) => {
                         <span className="numbers" style={{ color: "#ff3030" }}>
                           <i className="fas fa-book-dead"></i>
                           <br />
-                          <NumberFormat value={data.countrydata[0].total_new_deaths_today} thousandSeparator={true} displayType={'text'} />
+                          <NumberFormat
+                            value={data.countrydata[0].total_new_deaths_today}
+                            thousandSeparator={true}
+                            displayType={"text"}
+                          />
                         </span>
                         <br /> Deceased
                       </Col>

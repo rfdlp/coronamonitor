@@ -161,3 +161,7 @@ a.kofi-button:active {
     display: block;
   }
 }
+
+.text-low-warning {
+  color: #f0d318 !important;
+}
