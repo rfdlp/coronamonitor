@@ -25,10 +25,10 @@ const Navigation = props => {
           </Nav>
 
           <a title="Buy me a coffee!" className="kofi-button" href="/about">
-            <span class="kofitext">
+            <span className="kofitext">
               <img
                 src="https://ko-fi.com/img/cup-border.png"
-                class="kofiimg"
+                className="kofiimg"
                 alt="Coffee"
               />
             </span>

@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Fetch } from "react-request";
 import { Spinner } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import { Line } from "react-chartjs-2";
-import moment from "moment";
 import { Row, Col, Card } from "react-bootstrap";
+import NumberFormat from 'react-number-format';
 
 const Home = () => {
   return (
@@ -23,135 +21,135 @@ export default Home;
 
 const Summary = () => {
   return (
-    <Fetch url={`https://thevirustracker.com/free-api?global=stats`}>
-      {({ fetching, failed, data }) => {
-        if (fetching) {
-          return (
-            <div>
-              <Spinner animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-              </Spinner>
-            </div>
-          );
-        }
+    <Card
+      className="card card-default card-demo"
+      style={{ marginBottom: "20px" }}
+    >
+      <Card.Header as="h5">Global Summary</Card.Header>
+      <Fetch url={`https://thevirustracker.com/free-api?global=stats`}>
+        {({ fetching, failed, data }) => {
+          if (fetching) {
+            return (
+              <div>
+                <Spinner animation="border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
+              </div>
+            );
+          }
 
-        if (failed) {
-          return (
-            <div>Couldn't load data. Please try again in a few minutes.</div>
-          );
-        }
+          if (failed) {
+            return (
+              <div>Couldn't load data. Please try again in a few minutes.</div>
+            );
+          }
 
-        if (data) {
-          return (
-            <Card
-              className="card card-default card-demo"
-              style={{ marginBottom: "20px" }}
-            >
-              <Card.Header as="h5">Global Summary</Card.Header>
+          if (data) {
+            return (
               <Card.Body>
                 <Card.Text>
                   <Row>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#4271b3" }}>
-                        <i class="fas fa-clipboard-list"></i>
+                        <i className="fas fa-clipboard-list"></i>
                         <br />
-                        {data.results[0].total_cases}
+                        <NumberFormat value={data.results[0].total_cases} thousandSeparator={true} displayType={'text'} />
                       </span>
                       <br /> Total Cases
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#6ee6a4" }}>
-                        <i class="fas fa-file-medical-alt"></i>
+                        <i className="fas fa-file-medical-alt"></i>
                         <br />
-                        {data.results[0].total_recovered}
+                        <NumberFormat value={data.results[0].total_recovered} thousandSeparator={true} displayType={'text'} />
                       </span>
                       <br /> Recovered
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#f0d318" }}>
-                        <i class="fas fa-heartbeat"></i>
+                        <i className="fas fa-heartbeat"></i>
                         <br />
-                        {data.results[0].total_unresolved}
+                        <NumberFormat value={data.results[0].total_unresolved} thousandSeparator={true} displayType={'text'} />
                       </span>
                       <br /> Infected
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#f5972c" }}>
-                        <i class="fas fa-procedures"></i>
+                        <i className="fas fa-procedures"></i>
                         <br />
-                        {data.results[0].total_serious_cases}
+                        <NumberFormat value={data.results[0].total_serious_cases} thousandSeparator={true} displayType={'text'} />
                       </span>
                       <br /> Serious
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#ff3030" }}>
-                        <i class="fas fa-book-dead"></i>
+                        <i className="fas fa-book-dead"></i>
                         <br />
-                        {data.results[0].total_deaths}
+                        <NumberFormat value={data.results[0].total_deaths} thousandSeparator={true} displayType={'text'} />
                       </span>
                       <br /> Deceased
                     </Col>
                   </Row>
                 </Card.Text>
               </Card.Body>
-            </Card>
-          );
-        }
-      }}
-    </Fetch>
+            );
+          }
+        }}
+      </Fetch>
+    </Card>
   );
 };
 
 const Today = () => {
   return (
-    <Fetch url={`https://thevirustracker.com/free-api?global=stats`}>
-      {({ fetching, failed, data }) => {
-        if (fetching) {
-          return (
-            <div>
-              <Spinner animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-              </Spinner>
-            </div>
-          );
-        }
+    <Card className="card card-default card-demo">
+      <Card.Header as="h5">Today globally</Card.Header>
+      <Fetch url={`https://thevirustracker.com/free-api?global=stats`}>
+        {({ fetching, failed, data }) => {
+          if (fetching) {
+            return (
+              <div>
+                <Spinner animation="border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
+              </div>
+            );
+          }
 
-        if (failed) {
-          return (
-            <div>Couldn't load data. Please try again in a few minutes.</div>
-          );
-        }
+          if (failed) {
+            return (
+              <div>Couldn't load data. Please try again in a few minutes.</div>
+            );
+          }
 
-        if (data) {
-          return (
-            <Card className="card card-default card-demo">
-              <Card.Header as="h5">Today globally</Card.Header>
+          if (data) {
+            return (
               <Card.Body>
                 <Card.Text>
                   <Row>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#4271b3" }}>
-                        <i class="fas fa-plus-square"></i>
+                        <i className="fas fa-plus-square"></i>
                         <br />
-                        {data.results[0].total_new_cases_today}
+                        <NumberFormat value={data.results[0].total_new_cases_today} thousandSeparator={true} displayType={'text'} />
                       </span>
                       <br /> Cases
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#ff3030" }}>
-                        <i class="fas fa-book-dead"></i>
+                        <i className="fas fa-book-dead"></i>
                         <br />
-                        {data.results[0].total_new_deaths_today}
+                        <NumberFormat value={data.results[0].total_new_deaths_today} thousandSeparator={true} displayType={'text'} />
                       </span>
                       <br /> Deceased
                     </Col>
                   </Row>
                 </Card.Text>
               </Card.Body>
-            </Card>
-          );
-        }
-      }}
-    </Fetch>
+            );
+          }
+        }}
+      </Fetch>
+    </Card>
   );
 };
