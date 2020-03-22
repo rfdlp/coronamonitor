@@ -6,6 +6,7 @@ import { Line } from "react-chartjs-2";
 import moment from "moment";
 import { Row, Col, Card, ButtonGroup, Button, Alert } from "react-bootstrap";
 import NumberFormat from "react-number-format";
+import countryList from "react-select-country-list";
 
 const Country = () => {
   const { countryCode } = useParams();
@@ -43,7 +44,7 @@ const Country = () => {
       <Col>
         <HistoricalChart countryCode={countryCode} />
       </Col>
-      <Col lg={12} style={{ marginTop: "20px" }}>
+      {/* <Col lg={12} style={{ marginTop: "20px" }}>
         <Card className="card card-default card-demo">
           <Card.Header as="h5">Latest news</Card.Header>
           <Card.Body>
@@ -52,7 +53,7 @@ const Country = () => {
             </Card.Text>
           </Card.Body>
         </Card>
-      </Col>
+      </Col> */}
     </React.Fragment>
   );
 };
@@ -110,9 +111,7 @@ const Summary = ({
 }) => {
   return (
     <Card className="card card-default card-demo">
-      <Fetch
-        url={`https://thevirustracker.com/free-api?countryTotal=${countryCode}`}
-      >
+      <Fetch url={`https://corona.lmao.ninja/countries/${countryCode}`}>
         {({ fetching, failed, data }) => {
           if (fetching) {
             return (
@@ -135,13 +134,10 @@ const Summary = ({
             return (
               <React.Fragment>
                 <Card.Header as="h5">
-                  Summary for <strong>{data.countrydata[0].info.title}</strong>{" "}
-                  -{" "}
+                  Summary for <strong>{data.country}</strong> -{" "}
                   <i>
                     {fatalityRateLabel(
-                      (Number(data.countrydata[0].total_deaths) /
-                        Number(data.countrydata[0].total_cases)) *
-                        100
+                      (Number(data.deaths) / Number(data.cases)) * 100
                     )}{" "}
                     Fatality rate.
                   </i>
@@ -164,7 +160,7 @@ const Summary = ({
                           <i className="fas fa-clipboard-list"></i>
                           <br />
                           <NumberFormat
-                            value={data.countrydata[0].total_cases}
+                            value={data.cases}
                             thousandSeparator={true}
                             displayType={"text"}
                           />
@@ -176,7 +172,7 @@ const Summary = ({
                           <i className="fas fa-file-medical-alt"></i>
                           <br />
                           <NumberFormat
-                            value={data.countrydata[0].total_recovered}
+                            value={data.recovered}
                             thousandSeparator={true}
                             displayType={"text"}
                           />
@@ -188,7 +184,7 @@ const Summary = ({
                           <i className="fas fa-heartbeat"></i>
                           <br />
                           <NumberFormat
-                            value={data.countrydata[0].total_unresolved}
+                            value={data.active}
                             thousandSeparator={true}
                             displayType={"text"}
                           />
@@ -200,7 +196,7 @@ const Summary = ({
                           <i className="fas fa-procedures"></i>
                           <br />
                           <NumberFormat
-                            value={data.countrydata[0].total_serious_cases}
+                            value={data.critical}
                             thousandSeparator={true}
                             displayType={"text"}
                           />
@@ -212,7 +208,7 @@ const Summary = ({
                           <i className="fas fa-book-dead"></i>
                           <br />
                           <NumberFormat
-                            value={data.countrydata[0].total_deaths}
+                            value={data.deaths}
                             thousandSeparator={true}
                             displayType={"text"}
                           />
@@ -233,6 +229,21 @@ const Summary = ({
 
 const HistoricalChart = ({ countryCode }) => {
   const [days, setDays] = useState(7);
+
+  const countryListData = countryList().getData();
+
+  console.log("log", countryListData);
+
+  const mappedCountries = {
+    USA: "US",
+    UK: "GB",
+    "S. Korea": "KR",
+    Iran: "IR"
+  };
+
+  const realCountryCode =
+    mappedCountries[countryCode] ||
+    countryListData.filter(item => item.label === countryCode)[0].value;
 
   const chartOptions = {
     tooltips: {
@@ -314,7 +325,7 @@ const HistoricalChart = ({ countryCode }) => {
             </Button>
           </ButtonGroup>
           <Fetch
-            url={`https://thevirustracker.com/free-api?countryTimeline=${countryCode}`}
+            url={`https://thevirustracker.com/free-api?countryTimeline=${realCountryCode}`}
           >
             {({ fetching, failed, data }) => {
               if (fetching) {
@@ -415,6 +426,12 @@ const HistoricalChart = ({ countryCode }) => {
           </Fetch>
         </Card.Text>
       </Card.Body>
+      <Card.Footer style={{ textAlign: "right" }}>
+        <small>
+          Historical data by{" "}
+          <a href="https://thevirustracker.com/api">TheVirusTracker</a>
+        </small>
+      </Card.Footer>
     </Card>
   );
 };
@@ -422,9 +439,7 @@ const HistoricalChart = ({ countryCode }) => {
 const Today = ({ countryCode }) => {
   return (
     <Card className="card card-default card-demo">
-      <Fetch
-        url={`https://thevirustracker.com/free-api?countryTotal=${countryCode}`}
-      >
+      <Fetch url={`https://corona.lmao.ninja/countries/${countryCode}`}>
         {({ fetching, failed, data }) => {
           if (fetching) {
             return (
@@ -447,7 +462,7 @@ const Today = ({ countryCode }) => {
             return (
               <React.Fragment>
                 <Card.Header as="h5">
-                  Today in <strong>{data.countrydata[0].info.title}</strong>
+                  Today in <strong>{data.country}</strong>
                 </Card.Header>
                 <Card.Body>
                   <Card.Text>
@@ -457,7 +472,7 @@ const Today = ({ countryCode }) => {
                           <i className="fas fa-plus-square"></i>
                           <br />
                           <NumberFormat
-                            value={data.countrydata[0].total_new_cases_today}
+                            value={data.todayCases}
                             thousandSeparator={true}
                             displayType={"text"}
                           />
@@ -469,7 +484,7 @@ const Today = ({ countryCode }) => {
                           <i className="fas fa-book-dead"></i>
                           <br />
                           <NumberFormat
-                            value={data.countrydata[0].total_new_deaths_today}
+                            value={data.todayDeaths}
                             thousandSeparator={true}
                             displayType={"text"}
                           />

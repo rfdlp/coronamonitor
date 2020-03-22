@@ -12,7 +12,7 @@ const About = () => {
       </p>
       <h4>Data provided by</h4>
       <p>
-        <a href="https://thevirustracker.com/">https://thevirustracker.com/</a>
+        <a href="https://github.com/NovelCOVID/API">NovelCOVID/API</a>
       </p>
       <h4>If you want to say thanks...</h4>
       <p>
