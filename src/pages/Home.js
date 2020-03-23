@@ -4,12 +4,13 @@ import { Fetch } from "react-request";
 import { Spinner } from "react-bootstrap";
 import { Row, Col, Card, Table } from "react-bootstrap";
 import NumberFormat from "react-number-format";
+import { fatalityRateLabel } from "./Country";
 
-const selectStyles = {
-  borderColor: "#dadada",
-  color: "#666",
-  boxShadow: "1px -1px 2px #666",
-  width: "100%"
+const sorterIcon = (property, sorter) => {
+  if (sorter === property) {
+    return <i className="fas fa-sort-down"></i>;
+  }
+  return <i className="fas fa-sort-down" style={{ opacity: ".2" }}></i>;
 };
 
 const Home = () => {
@@ -32,30 +33,40 @@ export default Home;
 
 const Summary = () => {
   return (
-    <Card
-      className="card card-default card-demo"
-      style={{ marginBottom: "20px" }}
-    >
-      <Card.Header as="h5">Global Summary</Card.Header>
-      <Fetch url={`https://corona.lmao.ninja/countries`}>
-        {({ fetching, failed, data }) => {
-          if (fetching) {
-            return (
-              <div>
-                <Spinner animation="border" role="status">
-                  <span className="sr-only">Loading...</span>
-                </Spinner>
-              </div>
-            );
-          }
+    <Fetch url={`https://corona.lmao.ninja/countries`}>
+      {({ fetching, failed, data }) => {
+        if (fetching) {
+          return (
+            <div>
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            </div>
+          );
+        }
 
-          if (failed) {
-            return (
-              <div>Couldn't load data. Please try again in a few minutes.</div>
-            );
-          }
-          if (data) {
-            return (
+        if (failed) {
+          return (
+            <div>Couldn't load data. Please try again in a few minutes.</div>
+          );
+        }
+        if (data) {
+          return (
+            <Card
+              className="card card-default card-demo"
+              style={{ marginBottom: "20px" }}
+            >
+              <Card.Header as="h5">
+                Global Summary -{" "}
+                <i>
+                  {fatalityRateLabel(
+                    (sum(data.map(item => item.deaths)) /
+                      sum(data.map(item => item.cases))) *
+                      100
+                  )}{" "}
+                  Fatality rate.
+                </i>
+              </Card.Header>
               <Card.Body>
                 <Card.Text>
                   <Row>
@@ -122,20 +133,17 @@ const Summary = () => {
                   </Row>
                 </Card.Text>
               </Card.Body>
-            );
-          }
-        }}
-      </Fetch>
-    </Card>
+            </Card>
+          );
+        }
+      }}
+    </Fetch>
   );
 };
 
 const Today = () => {
   const [sorter, setSorter] = useState("todayDeaths");
 
-  const onChange = e => {
-    setSorter(e.target.value);
-  };
   return (
     <Card className="card card-default card-demo">
       <Card.Header as="h5">Today globally</Card.Header>
@@ -177,7 +185,18 @@ const Today = () => {
                           displayType={"text"}
                         />
                       </span>
-                      <br /> Cases
+                      <br />
+                      <span style={{ color: "#4271b3" }}>
+                        +
+                        {Number(
+                          (sum(data.map(item => item.todayCases)) /
+                            sum(data.map(item => item.cases))) *
+                            100
+                        ).toFixed(2)}
+                        %
+                      </span>
+                      <br />
+                      Cases
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#ff3030" }}>
@@ -189,35 +208,37 @@ const Today = () => {
                           displayType={"text"}
                         />
                       </span>
-                      <br /> Deceased
+                      <br />
+                      <span style={{ color: "#ff3030" }}>
+                        +
+                        {Number(
+                          (sum(data.map(item => item.todayDeaths)) /
+                            sum(data.map(item => item.deaths))) *
+                            100
+                        ).toFixed(2)}
+                        %
+                      </span>
+                      <br />
+                      Deceased
                     </Col>
                     <Col>
-                      <h5
-                        style={{
-                          borderTop: "1px solid #dadada",
-                          paddingTop: "20px",
-                          marginTop: "20px"
-                        }}
-                      >
-                        Worst today
-                      </h5>
-                      <select style={selectStyles} onChange={onChange}>
-                        <option value="todayDeaths">Number of Deceased</option>
-                        <option value="todayCases">Number of Cases</option>
-                      </select>
                       <Table responsive size="sm">
                         <thead>
                           <tr>
                             <th>Country</th>
                             <th
-                              style={{ textAlign: "right", color: "#4271b3" }}
+                              className="sorter-header cases"
+                              onClick={() => setSorter("todayCases")}
                             >
                               Cases
+                              {sorterIcon("todayCases", sorter)}
                             </th>
                             <th
-                              style={{ textAlign: "right", color: "#ff3030" }}
+                              className="sorter-header deaths"
+                              onClick={() => setSorter("todayDeaths")}
                             >
-                              Deceased
+                              Deaths
+                              {sorterIcon("todayDeaths", sorter)}
                             </th>
                           </tr>
                         </thead>
@@ -286,13 +307,9 @@ const Today = () => {
 const WorstCountries = () => {
   const [sorter, setSorter] = useState("cases");
 
-  const onChange = e => {
-    setSorter(e.target.value);
-  };
-
   return (
     <Card className="card card-default card-demo">
-      <Card.Header as="h5">10 Most Infected Countries</Card.Header>
+      <Card.Header as="h5">10 Most Affected Countries</Card.Header>
       <Fetch url={`https://corona.lmao.ninja/countries`}>
         {({ fetching, failed, data }) => {
           if (fetching) {
@@ -321,23 +338,30 @@ const WorstCountries = () => {
             return (
               <Card.Body>
                 <Card.Text>
-                  <select style={selectStyles} onChange={onChange}>
-                    <option value="cases">Number of Cases</option>
-                    <option value="critical">Number of Serious Cases</option>
-                    <option value="deaths">Number of Deceased</option>
-                  </select>
                   <Table responsive size="sm">
                     <thead>
                       <tr>
                         <th>Country</th>
-                        <th style={{ textAlign: "right", color: "#4271b3" }}>
+                        <th
+                          className="sorter-header cases"
+                          onClick={() => setSorter("cases")}
+                        >
                           Cases
+                          {sorterIcon("cases", sorter)}
                         </th>
-                        <th style={{ textAlign: "right", color: "#f5972c" }}>
+                        <th
+                          className="sorter-header critical"
+                          onClick={() => setSorter("critical")}
+                        >
                           Serious
+                          {sorterIcon("critical", sorter)}
                         </th>
-                        <th style={{ textAlign: "right", color: "#ff3030" }}>
-                          Deceased
+                        <th
+                          className="sorter-header deaths"
+                          onClick={() => setSorter("deaths")}
+                        >
+                          Deaths
+                          {sorterIcon("deaths", sorter)}
                         </th>
                       </tr>
                     </thead>
@@ -349,13 +373,13 @@ const WorstCountries = () => {
                               {item.country}
                             </Link>
                           </td>
-                          <td style={{ textAlign: "right", color: "#4271b3" }}>
+                          <td style={{ textAlign: "center", color: "#4271b3" }}>
                             {item.cases}
                           </td>
-                          <td style={{ textAlign: "right", color: "#f5972c" }}>
+                          <td style={{ textAlign: "center", color: "#f5972c" }}>
                             {item.critical}
                           </td>
-                          <td style={{ textAlign: "right", color: "#ff3030" }}>
+                          <td style={{ textAlign: "center", color: "#ff3030" }}>
                             <strong>{item.deaths}</strong>
                           </td>
                         </tr>

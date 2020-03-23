@@ -103,6 +103,8 @@ const fatalityRateLabel = rate => {
   );
 };
 
+export { fatalityLevels, fatalityRateLabel };
+
 const Summary = ({
   addToFavourites,
   favourites,

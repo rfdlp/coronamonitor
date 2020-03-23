@@ -165,3 +165,19 @@ a.kofi-button:active {
 .text-low-warning {
   color: #f0d318 !important;
 }
+
+.sorter-header {
+  text-align: center;
+  cursor: pointer;
+}
+.sorter-header.cases {
+  color: #4271b3;
+}
+
+.sorter-header.critical {
+  color: #f5972c;
+}
+
+.sorter-header.deaths {
+  color: #ff3030;
+}
