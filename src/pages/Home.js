@@ -93,7 +93,7 @@ const Summary = () => {
                           displayType={"text"}
                         />
                       </span>
-                      <br /> Infected
+                      <br /> Active
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#f5972c" }}>
@@ -158,7 +158,6 @@ const Today = () => {
           }
 
           if (data) {
-            console.log("log", data);
             const sortedData = []
               .concat(data)
               .sort((a, b) => parseFloat(a[sorter]) - parseFloat(b[sorter]))
@@ -218,7 +217,7 @@ const Today = () => {
                             <th
                               style={{ textAlign: "right", color: "#ff3030" }}
                             >
-                              Deaths
+                              Deceased
                             </th>
                           </tr>
                         </thead>
@@ -338,7 +337,7 @@ const WorstCountries = () => {
                           Serious
                         </th>
                         <th style={{ textAlign: "right", color: "#ff3030" }}>
-                          Deaths
+                          Deceased
                         </th>
                       </tr>
                     </thead>

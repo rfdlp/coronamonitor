@@ -189,7 +189,7 @@ const Summary = ({
                             displayType={"text"}
                           />
                         </span>
-                        <br /> Infected
+                        <br /> Active
                       </Col>
                       <Col style={{ textAlign: "center" }}>
                         <span className="numbers" style={{ color: "#f5972c" }}>
@@ -231,8 +231,6 @@ const HistoricalChart = ({ countryCode }) => {
   const [days, setDays] = useState(7);
 
   const countryListData = countryList().getData();
-
-  console.log("log", countryListData);
 
   const mappedCountries = {
     USA: "US",
