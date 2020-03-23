@@ -477,9 +477,24 @@ const Today = ({ countryCode }) => {
                             displayType={"text"}
                           />
                         </span>
+                        <br />
+                        <i style={{ color: "#4271b3" }}>
+                          +
+                          {Number((data.todayCases / data.cases) * 100).toFixed(
+                            1
+                          )}
+                          %
+                        </i>
                         <br /> Cases
                       </Col>
-                      <Col style={{ textAlign: "center" }}>
+                      <Col
+                        style={{
+                          textAlign: "center",
+                          borderTop: "1px dashed #dadada",
+                          marginTop: "22px",
+                          paddingTop: "20px"
+                        }}
+                      >
                         <span className="numbers" style={{ color: "#ff3030" }}>
                           <i className="fas fa-book-dead"></i>
                           <br />
@@ -489,6 +504,14 @@ const Today = ({ countryCode }) => {
                             displayType={"text"}
                           />
                         </span>
+                        <br />
+                        <i style={{ color: "#ff3030" }}>
+                          +
+                          {Number(
+                            (data.todayDeaths / data.deaths) * 100
+                          ).toFixed(1)}
+                          %
+                        </i>
                         <br /> Deceased
                       </Col>
                     </Row>

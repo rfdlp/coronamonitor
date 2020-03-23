@@ -186,7 +186,7 @@ const Today = () => {
                         />
                       </span>
                       <br />
-                      <span style={{ color: "#4271b3" }}>
+                      <i style={{ color: "#4271b3" }}>
                         +
                         {Number(
                           (sum(data.map(item => item.todayCases)) /
@@ -194,7 +194,7 @@ const Today = () => {
                             100
                         ).toFixed(2)}
                         %
-                      </span>
+                      </i>
                       <br />
                       Cases
                     </Col>
@@ -209,7 +209,7 @@ const Today = () => {
                         />
                       </span>
                       <br />
-                      <span style={{ color: "#ff3030" }}>
+                      <i style={{ color: "#ff3030" }}>
                         +
                         {Number(
                           (sum(data.map(item => item.todayDeaths)) /
@@ -217,7 +217,7 @@ const Today = () => {
                             100
                         ).toFixed(2)}
                         %
-                      </span>
+                      </i>
                       <br />
                       Deceased
                     </Col>
