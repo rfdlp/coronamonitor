@@ -181,3 +181,10 @@ a.kofi-button:active {
 .sorter-header.deaths {
   color: #ff3030;
 }
+
+.table > thead > tr > th {
+  padding: 14px 0px;
+}
+.table > thead > tr > th > i {
+  margin: 0 0 0 4px;
+}
