@@ -488,11 +488,9 @@ const Today = ({ countryCode }) => {
                         <br /> Cases
                       </Col>
                       <Col
+                        className="lg-divider"
                         style={{
-                          textAlign: "center",
-                          borderTop: "1px dashed #dadada",
-                          marginTop: "22px",
-                          paddingTop: "20px"
+                          textAlign: "center"
                         }}
                       >
                         <span className="numbers" style={{ color: "#ff3030" }}>

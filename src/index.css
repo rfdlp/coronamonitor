@@ -149,16 +149,15 @@ a.kofi-button:active {
   display: none;
 }
 @media only screen and (max-device-width: 736px) {
-  [class*="col"] > span.numbers {
-    font-size: 2em;
-  }
-
-  .historical-card {
-    margin-top: 20px;
-  }
-
   .mobile-only {
     display: block;
+  }
+}
+@media only screen and (min-device-width: 992px) {
+  .lg-divider {
+    border-top: 1px dashed #dadada;
+    margin-top: 22px;
+    padding-top: 20px;
   }
 }
 
