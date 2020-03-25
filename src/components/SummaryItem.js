@@ -1,44 +1,35 @@
 import React from "react";
-import { Col } from "react-bootstrap";
+import dataItemTypes from "../lib/dataItemTypes";
 import NumberFormat from "react-number-format";
 
-const SummaryItem = ({
-  position,
-  color,
-  icon,
-  amount,
-  separator,
-  displayedType,
-  text,
-  percentage,
-  columnClasses
-}) => {
+const SummaryItem = ({ dataType, value, increase }) => {
   return (
-    <Col className={columnClasses} style={{ textAlign: position }}>
-      <span className="numbers" style={{ color: color }}>
-        <i className={icon}></i>
+    <React.Fragment>
+      <span
+        className="numbers"
+        style={{ color: dataItemTypes[dataType].color }}
+      >
+        <i className={dataItemTypes[dataType].icon}></i>
         <br />
+
         <NumberFormat
-          value={amount}
-          thousandSeparator={separator}
-          displayType={displayedType}
+          value={value}
+          displayType={"text"}
+          thousandSeparator=","
         />
       </span>
-
-      {
-        percentage && <React.Fragment>
+      {increase && (
+        <React.Fragment>
           <br />
-          <i style={{ color: "#4271b3" }}>
-            +
-            {percentage}
-            %
-          </i>
+          <i style={{ color: dataItemTypes[dataType].color }}>+{increase}%</i>
         </React.Fragment>
-      }
-      
-      <br /> {text}
-    </Col>
+      )}
+      <br /> {dataItemTypes[dataType].label}
+    </React.Fragment>
   );
+};
+SummaryItem.defaultProps = {
+  increase: null
 };
 
 export default SummaryItem;

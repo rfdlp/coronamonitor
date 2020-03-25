@@ -6,16 +6,16 @@ import Today from "../components/country/Today";
 import CountryTypeahead from "../components/CountryTypeahead";
 
 const Compare = () => {
-  const [countryCode, setCountryCode] = useState('Brazil')
-  const [countryCode2, setCountryCode2] = useState('Spain')
+  const [countryCode, setCountryCode] = useState("Brazil");
+  const [countryCode2, setCountryCode2] = useState("Spain");
 
   const changeCountry = selected => {
-    if (selected[0]) setCountryCode(selected[0].value)
-  }
+    if (selected[0]) setCountryCode(selected[0].value);
+  };
 
   const changeCountry2 = selected => {
-    if (selected[0]) setCountryCode2(selected[0].value)
-  }
+    if (selected[0]) setCountryCode2(selected[0].value);
+  };
 
   return (
     <React.Fragment>
@@ -23,34 +23,30 @@ const Compare = () => {
         <Row>
           <Col lg={6}>
             <strong>Country 1:</strong>
-            <CountryTypeahead 
+            <CountryTypeahead
               field={countryCode}
-              changeFn={changeCountry}
-              defaultSelected={countryCode}
+              onChange={changeCountry}
+              selected={countryCode}
             />
-            <br/>
+            <br />
           </Col>
           <Col lg={6}>
             <strong>Country 2:</strong>
-            <CountryTypeahead 
+            <CountryTypeahead
               field={countryCode2}
-              changeFn={changeCountry2}
-              defaultSelected={countryCode2}
+              onChange={changeCountry2}
+              selected={countryCode2}
             />
-            <br/>
+            <br />
           </Col>
         </Row>
       </Col>
       <Col lg={6}>
-        <Today 
-          countryCode={countryCode}
-          removeDivider={true}/>
+        <Today countryCode={countryCode} removeDivider={true} />
       </Col>
 
       <Col lg={6}>
-        <Today 
-          countryCode={countryCode2}
-          removeDivider={true}/>
+        <Today countryCode={countryCode2} removeDivider={true} />
       </Col>
 
       <Col lg={12}>

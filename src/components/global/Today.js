@@ -41,34 +41,28 @@ const Today = props => {
               <Card.Body>
                 <Card.Text>
                   <Row>
-                    <SummaryItem
-                      position="center"
-                      color="#4271b3"
-                      icon="fas fa-plus-square"
-                      amount={sum(data.map(item => item.todayCases))}
-                      separator={true}
-                      displayedType={"text"}
-                      text="Cases"
-                      percentage={Number(
+                    <Col className="text-center">
+                      <SummaryItem
+                        dataType="cases"
+                        value={sum(data.map(item => item.todayCases))}
+                        increase={Number(
                           (sum(data.map(item => item.todayCases)) /
                             sum(data.map(item => item.cases))) *
                             100
                         ).toFixed(2)}
-                    />
-                    <SummaryItem
-                      position="center"
-                      color="#ff3030"
-                      icon="fas fa-book-dead"
-                      amount={sum(data.map(item => item.todayDeaths))}
-                      separator={true}
-                      displayedType={"text"}
-                      text="Deceased"
-                      percentage={Number(
+                      />
+                    </Col>
+                    <Col className="text-center">
+                      <SummaryItem
+                        dataType="deaths"
+                        value={sum(data.map(item => item.todayDeaths))}
+                        increase={Number(
                           (sum(data.map(item => item.todayDeaths)) /
                             sum(data.map(item => item.deaths))) *
                             100
                         ).toFixed(2)}
-                    />
+                      />
+                    </Col>
                     <Col>
                       <Table responsive size="sm">
                         <thead>
