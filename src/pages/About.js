@@ -1,13 +1,35 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 
 const About = () => {
   return (
     <Container>
-      <h3>Contributors</h3>
+      <h1>Motivation</h1>
+      <p>
+        There are a lot of great resources out ther to find information about
+        the current situation, but they are all either too complex or too
+        simple.
+      </p>
+      <p>
+        Our goal with nCoverage is to bring the numbers together in a single
+        page for the globe and one for each country, so everyone can easily keep
+        up with the numbers as they change and have a link to share with their
+        peers.
+      </p>
+      <p>
+        Take a look at the <Link to={{ pathname: "/faq" }}>FAQ</Link> if you
+        want to know more about the Coronavirus and how to protect yourself.
+      </p>
+      <p>Our best wishes to all of you out there!</p>
+
+      <h3>Created by</h3>
       <p>
         <a href="https://github.com/rafaeldalpra">Rafael Dalpra</a>,{" "}
         <a href="https://github.com/jonatasdaniel">Jonatas Daniel</a>,{" "}
+      </p>
+      <h4>Contributors</h4>
+      <p>
         <a href="https://github.com/anpenava">Ante Penava</a>,{" "}
         <a href="https://github.com/gpfiel">Gabriel Fiel</a>
       </p>
