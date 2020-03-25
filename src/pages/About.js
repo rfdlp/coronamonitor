@@ -6,9 +6,10 @@ const About = () => {
     <Container>
       <h3>Contributors</h3>
       <p>
-        <a href="https://github.com/rafaeldalpra">rafaeldalpra</a>,{" "}
-        <a href="https://github.com/jonatasdaniel">jonatasdaniel</a>,{" "}
-        <a href="https://github.com/anpenava">anpenava</a>
+        <a href="https://github.com/rafaeldalpra">Rafael Dalpra</a>,{" "}
+        <a href="https://github.com/jonatasdaniel">Jonatas Daniel</a>,{" "}
+        <a href="https://github.com/anpenava">Ante Penava</a>,{" "}
+        <a href="https://github.com/gpfiel">Gabriel Fiel</a>
       </p>
       <h4>Data provided by</h4>
       <p>
