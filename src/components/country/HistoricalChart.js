@@ -68,7 +68,7 @@ const HistoricalChart = ({ countryCode }) => {
   };
   return (
     <Card className="card card-default card-demo historical-card">
-      <Card.Header as="h5">Historical data</Card.Header>
+      <Card.Header as="h5">Historical data in <strong>{countryCode}</strong></Card.Header>
       <Card.Body>
         <Card.Text>
           <ButtonGroup

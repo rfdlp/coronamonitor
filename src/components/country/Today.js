@@ -4,7 +4,8 @@ import { Spinner } from "react-bootstrap";
 import { Row, Card } from "react-bootstrap";
 import SummaryItem from "../SummaryItem";
 
-const TodayByCountry = ({ countryCode }) => {
+const TodayByCountry = ({ countryCode, removeDivider }) => {
+  let divider = removeDivider ? "" : "lg-divider"
   return (
     <Card className="card card-default card-demo">
       <Fetch url={`https://corona.lmao.ninja/countries/${countryCode}`}>
@@ -46,7 +47,7 @@ const TodayByCountry = ({ countryCode }) => {
                         percentage={Number((data.todayCases / data.cases) * 100).toFixed(1)}
                       />
                       <SummaryItem
-                        columnClasses="lg-divider"
+                        columnClasses={divider}
                         position="center"
                         color="#ff3030"
                         icon="fas fa-book-dead"

@@ -22,6 +22,7 @@ const Navigation = props => {
           <Nav className="mr-auto">
             <Nav.Link href="/">Global</Nav.Link>
             <Nav.Link href="/about">About</Nav.Link>
+            <Nav.Link href="/compare">Compare countries</Nav.Link>
           </Nav>
 
           <a title="Buy me a coffee!" className="kofi-button" href="/about">

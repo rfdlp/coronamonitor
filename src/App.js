@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Country from "./pages/Country";
 import About from "./pages/About";
+import Compare from "./pages/Compare";
 import Navigation from "./components/Navigation";
 import { Container, Row, Col } from "react-bootstrap";
 
@@ -21,6 +22,9 @@ function App() {
           <Switch>
             <Route path="/about">
               <About />
+            </Route>
+            <Route path="/compare">
+              <Compare />
             </Route>
             <Route path="/:countryCode" children={<Country />} />
             <Route path="/">
