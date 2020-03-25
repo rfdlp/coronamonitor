@@ -1,9 +1,9 @@
 import React from "react";
 import { Fetch } from "react-request";
 import { Spinner } from "react-bootstrap";
-import { Row, Col, Card } from "react-bootstrap";
-import NumberFormat from "react-number-format";
+import { Row, Card } from "react-bootstrap";
 import FatalityRateLabel from "../../components/FatailityRateLabel";
+import SummaryItem from "../SummaryItem";
 
 const SummaryByCountry = ({
   addToFavourites,
@@ -57,66 +57,51 @@ const SummaryByCountry = ({
                 <Card.Body>
                   <Card.Text>
                     <Row>
-                      <Col style={{ textAlign: "center" }}>
-                        <span className="numbers" style={{ color: "#4271b3" }}>
-                          <i className="fas fa-clipboard-list"></i>
-                          <br />
-                          <NumberFormat
-                            value={data.cases}
-                            thousandSeparator={true}
-                            displayType={"text"}
-                          />
-                        </span>
-                        <br /> Total Cases
-                      </Col>
-                      <Col style={{ textAlign: "center" }}>
-                        <span className="numbers" style={{ color: "#6ee6a4" }}>
-                          <i className="fas fa-file-medical-alt"></i>
-                          <br />
-                          <NumberFormat
-                            value={data.recovered}
-                            thousandSeparator={true}
-                            displayType={"text"}
-                          />
-                        </span>
-                        <br /> Recovered
-                      </Col>
-                      <Col style={{ textAlign: "center" }}>
-                        <span className="numbers" style={{ color: "#f0d318" }}>
-                          <i className="fas fa-heartbeat"></i>
-                          <br />
-                          <NumberFormat
-                            value={data.active}
-                            thousandSeparator={true}
-                            displayType={"text"}
-                          />
-                        </span>
-                        <br /> Active
-                      </Col>
-                      <Col style={{ textAlign: "center" }}>
-                        <span className="numbers" style={{ color: "#f5972c" }}>
-                          <i className="fas fa-procedures"></i>
-                          <br />
-                          <NumberFormat
-                            value={data.critical}
-                            thousandSeparator={true}
-                            displayType={"text"}
-                          />
-                        </span>
-                        <br /> Serious
-                      </Col>
-                      <Col style={{ textAlign: "center" }}>
-                        <span className="numbers" style={{ color: "#ff3030" }}>
-                          <i className="fas fa-book-dead"></i>
-                          <br />
-                          <NumberFormat
-                            value={data.deaths}
-                            thousandSeparator={true}
-                            displayType={"text"}
-                          />
-                        </span>
-                        <br /> Deceased
-                      </Col>
+                      <SummaryItem
+                        position="center"
+                        color="#4271b3"
+                        icon="fas fa-clipboard-list"
+                        amount={data.cases}
+                        separator={true}
+                        displayedType={"text"}
+                        text="Total Cases"
+                      />
+                      <SummaryItem
+                        position="center"
+                        color="#6ee6a4"
+                        icon="fas fa-file-medical-alt"
+                        amount={data.recovered}
+                        separator={true}
+                        displayedType={"text"}
+                        text="Recovered"
+                      />
+                      <SummaryItem
+                        position="center"
+                        color="#f0d318"
+                        icon="fas fa-heartbeat"
+                        amount={data.active}
+                        separator={true}
+                        displayedType={"text"}
+                        text="Active"
+                      />
+                      <SummaryItem
+                        position="center"
+                        color="#f5972c"
+                        icon="fas fa-procedures"
+                        amount={data.critical}
+                        separator={true}
+                        displayedType={"text"}
+                        text="Serious"
+                      />
+                      <SummaryItem
+                        position="center"
+                        color="#ff3030"
+                        icon="fas fa-book-dead"
+                        amount={data.deaths}
+                        separator={true}
+                        displayedType={"text"}
+                        text="Deceased"
+                      />
                     </Row>
                   </Card.Text>
                 </Card.Body>
