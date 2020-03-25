@@ -37,10 +37,15 @@ const About = () => {
       <p>
         <a href="https://github.com/NovelCOVID/API">NovelCOVID/API</a>
       </p>
-      <h4>If you want to say thanks...</h4>
+      <h4>Want to contribute?</h4>
+      <p>
+        This is a non-profit project with the single objective of bringing
+        information to people and the infra-structure cost is being paid by us.
+        It's not much, but if you want to help...
+      </p>
       <p>
         <a
-          title="Buy me a coffee!"
+          title="Buy us a coffee!"
           className="kofi-button"
           href="https://ko-fi.com/E1E41IHLW"
           rel="noopener noreferrer"
