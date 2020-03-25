@@ -1,8 +1,8 @@
 import React from "react";
 import { Fetch } from "react-request";
 import { Spinner } from "react-bootstrap";
-import { Row, Col, Card } from "react-bootstrap";
-import NumberFormat from "react-number-format";
+import { Row, Card } from "react-bootstrap";
+import SummaryItem from "../SummaryItem";
 
 const TodayByCountry = ({ countryCode }) => {
   return (
@@ -35,51 +35,27 @@ const TodayByCountry = ({ countryCode }) => {
                 <Card.Body>
                   <Card.Text>
                     <Row>
-                      <Col style={{ textAlign: "center" }}>
-                        <span className="numbers" style={{ color: "#4271b3" }}>
-                          <i className="fas fa-plus-square"></i>
-                          <br />
-                          <NumberFormat
-                            value={data.todayCases}
-                            thousandSeparator={true}
-                            displayType={"text"}
-                          />
-                        </span>
-                        <br />
-                        <i style={{ color: "#4271b3" }}>
-                          +
-                          {Number((data.todayCases / data.cases) * 100).toFixed(
-                            1
-                          )}
-                          %
-                        </i>
-                        <br /> Cases
-                      </Col>
-                      <Col
-                        className="lg-divider"
-                        style={{
-                          textAlign: "center"
-                        }}
-                      >
-                        <span className="numbers" style={{ color: "#ff3030" }}>
-                          <i className="fas fa-book-dead"></i>
-                          <br />
-                          <NumberFormat
-                            value={data.todayDeaths}
-                            thousandSeparator={true}
-                            displayType={"text"}
-                          />
-                        </span>
-                        <br />
-                        <i style={{ color: "#ff3030" }}>
-                          +
-                          {Number(
-                            (data.todayDeaths / data.deaths) * 100
-                          ).toFixed(1)}
-                          %
-                        </i>
-                        <br /> Deceased
-                      </Col>
+                      <SummaryItem
+                        position="center"
+                        color="#4271b3"
+                        icon="fas fa-plus-square"
+                        amount={data.todayCases}
+                        separator={true}
+                        displayedType={"text"}
+                        text="Cases"
+                        percentage={Number((data.todayCases / data.cases) * 100).toFixed(1)}
+                      />
+                      <SummaryItem
+                        columnClasses="lg-divider"
+                        position="center"
+                        color="#ff3030"
+                        icon="fas fa-book-dead"
+                        amount={data.todayDeaths}
+                        separator={true}
+                        displayedType={"text"}
+                        text="Deceased"
+                        percentage={Number((data.todayDeaths / data.deaths) * 100).toFixed(1)}
+                      />
                     </Row>
                   </Card.Text>
                 </Card.Body>

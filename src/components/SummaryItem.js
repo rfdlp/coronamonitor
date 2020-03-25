@@ -9,10 +9,12 @@ const SummaryItem = ({
   amount,
   separator,
   displayedType,
-  text
+  text,
+  percentage,
+  columnClasses
 }) => {
   return (
-    <Col style={{ textAlign: position }}>
+    <Col className={columnClasses} style={{ textAlign: position }}>
       <span className="numbers" style={{ color: color }}>
         <i className={icon}></i>
         <br />
@@ -22,6 +24,18 @@ const SummaryItem = ({
           displayType={displayedType}
         />
       </span>
+
+      {
+        percentage && <React.Fragment>
+          <br />
+          <i style={{ color: "#4271b3" }}>
+            +
+            {percentage}
+            %
+          </i>
+        </React.Fragment>
+      }
+      
       <br /> {text}
     </Col>
   );
