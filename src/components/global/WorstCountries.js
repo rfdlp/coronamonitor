@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Fetch } from "react-request";
 import { Spinner } from "react-bootstrap";
 import { Card, Table } from "react-bootstrap";
-import sorterIcon from "../helpers/SorterIcon";
+import SorterIcon from "../../components/SorterIcon";
 
 const WorstCountries = props => {
   const [sorter, setSorter] = useState("cases");
@@ -48,21 +48,21 @@ const WorstCountries = props => {
                           onClick={() => setSorter("cases")}
                         >
                           Cases
-                          {sorterIcon("cases", sorter)}
+                          <SorterIcon active={"cases" === sorter} />
                         </th>
                         <th
                           className="sorter-header critical"
                           onClick={() => setSorter("critical")}
                         >
                           Serious
-                          {sorterIcon("critical", sorter)}
+                          <SorterIcon active={"critical" === sorter} />
                         </th>
                         <th
                           className="sorter-header deaths"
                           onClick={() => setSorter("deaths")}
                         >
                           Deaths
-                          {sorterIcon("deaths", sorter)}
+                          <SorterIcon active={"deaths" === sorter} />
                         </th>
                       </tr>
                     </thead>

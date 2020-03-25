@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Col } from "react-bootstrap";
-import Summary from "../components/SummaryByCountry";
-import HistoricalChart from "../components/HistoricalChart";
-import Today from "../components/TodayByCountry";
+import Summary from "../components/country/Summary";
+import HistoricalChart from "../components/country/HistoricalChart";
+import Today from "../components/country/Today";
 // import News from "../components/News";
 
 const Country = () => {

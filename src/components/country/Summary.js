@@ -3,7 +3,7 @@ import { Fetch } from "react-request";
 import { Spinner } from "react-bootstrap";
 import { Row, Col, Card } from "react-bootstrap";
 import NumberFormat from "react-number-format";
-import { fatalityRateLabel } from "../helpers/Fatality";
+import FatalityRateLabel from "../../components/FatailityRateLabel";
 
 const SummaryByCountry = ({
   addToFavourites,
@@ -38,9 +38,9 @@ const SummaryByCountry = ({
                 <Card.Header as="h5">
                   Summary for <strong>{data.country}</strong> -{" "}
                   <i>
-                    {fatalityRateLabel(
-                      (Number(data.deaths) / Number(data.cases)) * 100
-                    )}{" "}
+                    <FatalityRateLabel
+                      rate={(Number(data.deaths) / Number(data.cases)) * 100}
+                    />{" "}
                     Fatality rate.
                   </i>
                   {/* <button

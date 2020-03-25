@@ -1,8 +1,8 @@
 import React from "react";
 import { Col } from "react-bootstrap";
-import Today from "../components/Today";
-import WorstCountries from "../components/WorstCountries";
-import Summary from "../components/Summary";
+import Today from "../components/global/Today";
+import WorstCountries from "../components/global/WorstCountries";
+import Summary from "../components/global/Summary";
 
 const Home = () => {
   return (

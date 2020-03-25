@@ -3,8 +3,8 @@ import { Fetch } from "react-request";
 import { Spinner } from "react-bootstrap";
 import { Row, Col, Card } from "react-bootstrap";
 import NumberFormat from "react-number-format";
-import { fatalityRateLabel } from "../helpers/Fatality";
-import sum from "../helpers/Sum";
+import FatalityRateLabel from "../../components/FatailityRateLabel";
+import sum from "../../lib/sum";
 
 const Summary = props => {
   return (
@@ -34,11 +34,13 @@ const Summary = props => {
               <Card.Header as="h5">
                 Global Summary -{" "}
                 <i>
-                  {fatalityRateLabel(
-                    (sum(data.map(item => item.deaths)) /
-                      sum(data.map(item => item.cases))) *
+                  <FatalityRateLabel
+                    rate={
+                      (sum(data.map(item => item.deaths)) /
+                        sum(data.map(item => item.cases))) *
                       100
-                  )}{" "}
+                    }
+                  />{" "}
                   Fatality rate.
                 </i>
               </Card.Header>

@@ -4,8 +4,8 @@ import { Fetch } from "react-request";
 import { Spinner } from "react-bootstrap";
 import { Row, Col, Card, Table } from "react-bootstrap";
 import NumberFormat from "react-number-format";
-import sorterIcon from "../helpers/SorterIcon";
-import sum from "../helpers/Sum";
+import SorterIcon from "../../components/SorterIcon";
+import sum from "../../lib/sum";
 
 const Today = props => {
   const [sorter, setSorter] = useState("todayDeaths");
@@ -97,14 +97,14 @@ const Today = props => {
                               onClick={() => setSorter("todayCases")}
                             >
                               Cases
-                              {sorterIcon("todayCases", sorter)}
+                              <SorterIcon active={"todayCases" === sorter} />
                             </th>
                             <th
                               className="sorter-header deaths"
                               onClick={() => setSorter("todayDeaths")}
                             >
                               Deaths
-                              {sorterIcon("todayDeaths", sorter)}
+                              <SorterIcon active={"todayDeaths" === sorter} />
                             </th>
                           </tr>
                         </thead>
