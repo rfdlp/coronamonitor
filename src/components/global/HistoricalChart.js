@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import moment from "moment";
+import sum from "../../lib/sum";
 import { Card, ButtonGroup, Button, Alert } from "react-bootstrap";
 import { Line } from "react-chartjs-2";
 import { Spinner } from "react-bootstrap";
 import { Fetch } from "react-request";
 
-const HistoricalChart = ({ countryCode }) => {
-  const [days, setDays] = useState(7);
+const HistoricalChart = () => {
+  const [days, setDays] = useState(90);
 
   const chartOptions = {
     tooltips: {
@@ -15,7 +16,7 @@ const HistoricalChart = ({ countryCode }) => {
       intersect: false,
       callbacks: {
         label: tooltipItem => {
-          return tooltipItem.datasetIndex === 3
+          return tooltipItem.datasetIndex === 2
             ? `${Number(tooltipItem.yLabel).toFixed(1)}%`
             : `${Number(tooltipItem.yLabel)}`;
         },
@@ -93,11 +94,7 @@ const HistoricalChart = ({ countryCode }) => {
               6M
             </Button>
           </ButtonGroup>
-          <Fetch
-            url={`https://corona.lmao.ninja/v2/historical/${
-              countryCode.split(",")[0]
-            }`}
-          >
+          <Fetch url={`https://corona.lmao.ninja/v2/historical`}>
             {({ fetching, failed, data }) => {
               if (fetching) {
                 return (
@@ -117,7 +114,7 @@ const HistoricalChart = ({ countryCode }) => {
                 );
               }
 
-              if (data && !data.timeline) {
+              if (data && data.length === 0) {
                 return (
                   <Alert key={123} variant="warning">
                     Problem fetching data. Please try again in a few minutes.
@@ -125,8 +122,8 @@ const HistoricalChart = ({ countryCode }) => {
                 );
               }
 
-              if (data && data.timeline) {
-                const keys = Object.keys(data.timeline.cases).slice(-days);
+              if (data && data.length > 0) {
+                const keys = Object.keys(data[0].timeline.cases).slice(-days);
 
                 const chartData = {
                   labels: keys.map(k => new Date(k)),
@@ -135,7 +132,7 @@ const HistoricalChart = ({ countryCode }) => {
                       label: "Cases",
                       data: keys.map(k => ({
                         x: new Date(k),
-                        y: data.timeline.cases[k]
+                        y: sum(data.map(country => country.timeline.cases[k]))
                       })),
                       borderColor: "#4271b3",
                       backgroundColor: "#4271b3",
@@ -147,7 +144,7 @@ const HistoricalChart = ({ countryCode }) => {
                       label: "Deceased",
                       data: keys.map(k => ({
                         x: new Date(k),
-                        y: data.timeline.deaths[k]
+                        y: sum(data.map(country => country.timeline.deaths[k]))
                       })),
                       borderColor: "#ff3030",
                       backgroundColor: "#ff3030",
@@ -160,7 +157,12 @@ const HistoricalChart = ({ countryCode }) => {
                       data: keys.map(k => ({
                         x: new Date(k),
                         y:
-                          (data.timeline.deaths[k] / data.timeline.cases[k]) *
+                          (sum(
+                            data.map(country => country.timeline.deaths[k])
+                          ) /
+                            sum(
+                              data.map(country => country.timeline.cases[k])
+                            )) *
                           100
                       })),
                       borderColor: "rgba(161, 35, 10, 0.1)",

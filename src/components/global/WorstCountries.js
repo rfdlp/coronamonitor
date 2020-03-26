@@ -71,7 +71,7 @@ const WorstCountries = props => {
                         <tr>
                           <td>
                             <Link to={{ pathname: `/${item.country}` }}>
-                              {item.country}
+                              {item.country.split(",")[0]}
                             </Link>
                           </td>
                           <td style={{ textAlign: "center", color: "#4271b3" }}>

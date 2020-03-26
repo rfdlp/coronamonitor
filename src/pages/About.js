@@ -7,9 +7,8 @@ const About = () => {
     <Container>
       <h1>Motivation</h1>
       <p>
-        There are a lot of great resources out ther to find information about
-        the current situation, but they are all either too complex or too
-        simple.
+        There are a lot of great resources out there keep informed about the
+        current situation, but they are all either too complex or too simple.
       </p>
       <p>
         Our goal with nCoverage is to bring the numbers together in a single
@@ -30,8 +29,7 @@ const About = () => {
       </p>
       <h4>Contributors</h4>
       <p>
-        <a href="https://github.com/anpenava">Ante Penava</a>,{" "}
-        <a href="https://github.com/gpfiel">Gabriel Fiel</a>
+        <a href="https://github.com/anpenava">Ante Penava</a>
       </p>
       <h4>Data provided by</h4>
       <p>
