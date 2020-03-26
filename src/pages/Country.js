@@ -4,7 +4,7 @@ import { Col } from "react-bootstrap";
 import Summary from "../components/country/Summary";
 import HistoricalChart from "../components/country/HistoricalChart";
 import Today from "../components/country/Today";
-// import News from "../components/News";
+import DailyNumbers from "../components/country/DailyNumbers";
 
 const Country = () => {
   const { countryCode } = useParams();
@@ -41,6 +41,9 @@ const Country = () => {
       </Col>
       <Col>
         <HistoricalChart countryCode={countryCode} />
+      </Col>
+      <Col lg={12}>
+        <DailyNumbers countryCode={countryCode} />
       </Col>
       {/* <Col lg={12} style={{ marginTop: "20px" }}>
         <Card className="card card-default card-demo">

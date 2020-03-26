@@ -4,6 +4,7 @@ import Today from "../components/global/Today";
 import WorstCountries from "../components/global/WorstCountries";
 import Summary from "../components/global/Summary";
 import HistoricalChart from "../components/global/HistoricalChart";
+import DailyNumbers from "../components/global/DailyNumbers";
 
 const Home = () => {
   return (
@@ -13,6 +14,9 @@ const Home = () => {
       </Col>
       <Col lg={12}>
         <HistoricalChart />
+      </Col>
+      <Col lg={12}>
+        <DailyNumbers />
       </Col>
       <Col>
         <Today />
