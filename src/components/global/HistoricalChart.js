@@ -12,7 +12,6 @@ const HistoricalChart = () => {
   const chartOptions = {
     tooltips: {
       mode: "index",
-      position: "nearest",
       intersect: false,
       callbacks: {
         label: tooltipItem => {
@@ -138,7 +137,8 @@ const HistoricalChart = () => {
                       backgroundColor: "#4271b3",
                       borderWidth: 1,
                       fill: false,
-                      lineTension: 0
+                      lineTension: 0,
+                      pointRadius: 1
                     },
                     {
                       label: "Deceased",
@@ -149,7 +149,8 @@ const HistoricalChart = () => {
                       borderColor: "#ff3030",
                       backgroundColor: "#ff3030",
                       borderWidth: 1,
-                      lineTension: 0
+                      lineTension: 0,
+                      pointRadius: 1
                     },
                     {
                       yAxisID: "rate",
@@ -170,7 +171,8 @@ const HistoricalChart = () => {
                       // fill: false,
                       borderWidth: 1,
                       lineTension: 0,
-                      hidden: true
+                      hidden: true,
+                      pointRadius: 1
                     }
                   ]
                 };

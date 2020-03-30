@@ -11,7 +11,6 @@ const HistoricalChart = ({ countryCode }) => {
   const chartOptions = {
     tooltips: {
       mode: "index",
-      position: "nearest",
       intersect: false,
       callbacks: {
         label: tooltipItem => {
@@ -140,6 +139,7 @@ const HistoricalChart = ({ countryCode }) => {
                       borderColor: "#4271b3",
                       backgroundColor: "#4271b3",
                       borderWidth: 1,
+                      pointRadius: 1,
                       fill: false,
                       lineTension: 0
                     },
@@ -152,6 +152,7 @@ const HistoricalChart = ({ countryCode }) => {
                       borderColor: "#ff3030",
                       backgroundColor: "#ff3030",
                       borderWidth: 1,
+                      pointRadius: 1,
                       lineTension: 0
                     },
                     {
@@ -165,8 +166,8 @@ const HistoricalChart = ({ countryCode }) => {
                       })),
                       borderColor: "rgba(161, 35, 10, 0.1)",
                       backgroundColor: "rgba(161, 35, 10, 0.1)",
-                      // fill: false,
                       borderWidth: 1,
+                      pointRadius: 1,
                       lineTension: 0,
                       hidden: true
                     }
