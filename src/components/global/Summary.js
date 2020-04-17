@@ -6,9 +6,9 @@ import NumberFormat from "react-number-format";
 import FatalityRateLabel from "../../components/FatailityRateLabel";
 import sum from "../../lib/sum";
 
-const Summary = props => {
+const Summary = ({ showMap, setShowMap }) => {
   return (
-    <Fetch url={`https://corona.lmao.ninja/countries`}>
+    <Fetch url={`https://corona.lmao.ninja/v2/countries`}>
       {({ fetching, failed, data }) => {
         if (fetching) {
           return (
@@ -36,13 +36,13 @@ const Summary = props => {
                 <i>
                   <FatalityRateLabel
                     rate={
-                      (sum(data.map(item => item.deaths)) /
-                        sum(data.map(item => item.cases))) *
+                      (sum(data.map((item) => item.deaths)) /
+                        sum(data.map((item) => item.cases))) *
                       100
                     }
                   />{" "}
                   Fatality rate.
-                </i>
+                </i>{" "}
               </Card.Header>
               <Card.Body>
                 <Card.Text>
@@ -52,7 +52,7 @@ const Summary = props => {
                         <i className="fas fa-clipboard-list"></i>
                         <br />
                         <NumberFormat
-                          value={sum(data.map(item => item.cases))}
+                          value={sum(data.map((item) => item.cases))}
                           thousandSeparator={true}
                           displayType={"text"}
                         />
@@ -64,7 +64,7 @@ const Summary = props => {
                         <i className="fas fa-file-medical-alt"></i>
                         <br />
                         <NumberFormat
-                          value={sum(data.map(item => item.recovered))}
+                          value={sum(data.map((item) => item.recovered))}
                           thousandSeparator={true}
                           displayType={"text"}
                         />
@@ -76,7 +76,7 @@ const Summary = props => {
                         <i className="fas fa-heartbeat"></i>
                         <br />
                         <NumberFormat
-                          value={sum(data.map(item => item.active))}
+                          value={sum(data.map((item) => item.active))}
                           thousandSeparator={true}
                           displayType={"text"}
                         />
@@ -88,25 +88,37 @@ const Summary = props => {
                         <i className="fas fa-procedures"></i>
                         <br />
                         <NumberFormat
-                          value={sum(data.map(item => item.critical))}
+                          value={sum(data.map((item) => item.critical))}
                           thousandSeparator={true}
                           displayType={"text"}
                         />
                       </span>
-                      <br /> Serious
+                      <br /> Critical
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <span className="numbers" style={{ color: "#ff3030" }}>
                         <i className="fas fa-book-dead"></i>
                         <br />
                         <NumberFormat
-                          value={sum(data.map(item => item.deaths))}
+                          value={sum(data.map((item) => item.deaths))}
                           thousandSeparator={true}
                           displayType={"text"}
                         />
                       </span>
                       <br /> Deceased
                     </Col>
+
+                    {/* <Col xs={12} style={{ textAlign: "center" }}>
+                      <a
+                        href="/"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setShowMap(!showMap);
+                        }}
+                      >
+                        {showMap ? "Hide" : "View"} Map
+                      </a>
+                    </Col> */}
                   </Row>
                 </Card.Text>
               </Card.Body>

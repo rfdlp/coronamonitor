@@ -148,9 +148,15 @@ a.kofi-button:active {
 .mobile-only {
   display: none;
 }
+.desktop-only {
+  display: block;
+}
 @media only screen and (max-device-width: 736px) {
   .mobile-only {
     display: block;
+  }
+  .desktop-only {
+    display: none;
   }
 }
 @media only screen and (min-device-width: 992px) {

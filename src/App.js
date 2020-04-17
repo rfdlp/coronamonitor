@@ -10,7 +10,7 @@ import { Container, Row, Col } from "react-bootstrap";
 function App() {
   return (
     <Router>
-      <Container fluid="md">
+      <Container fluid="lg">
         <Row>
           <Col>
             <Navigation />

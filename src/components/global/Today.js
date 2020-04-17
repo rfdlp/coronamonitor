@@ -7,13 +7,13 @@ import NumberFormat from "react-number-format";
 import SorterIcon from "../../components/SorterIcon";
 import sum from "../../lib/sum";
 
-const Today = props => {
+const Today = (props) => {
   const [sorter, setSorter] = useState("todayDeaths");
 
   return (
     <Card className="card card-default card-demo">
       <Card.Header as="h5">Today globally</Card.Header>
-      <Fetch url={`https://corona.lmao.ninja/countries`}>
+      <Fetch url={`https://corona.lmao.ninja/v2/countries`}>
         {({ fetching, failed, data }) => {
           if (fetching) {
             return (
@@ -46,7 +46,7 @@ const Today = props => {
                         <i className="fas fa-plus-square"></i>
                         <br />
                         <NumberFormat
-                          value={sum(data.map(item => item.todayCases))}
+                          value={sum(data.map((item) => item.todayCases))}
                           thousandSeparator={true}
                           displayType={"text"}
                         />
@@ -55,8 +55,8 @@ const Today = props => {
                       <i style={{ color: "#4271b3" }}>
                         +
                         {Number(
-                          (sum(data.map(item => item.todayCases)) /
-                            sum(data.map(item => item.cases))) *
+                          (sum(data.map((item) => item.todayCases)) /
+                            sum(data.map((item) => item.cases))) *
                             100
                         ).toFixed(2)}
                         %
@@ -69,7 +69,7 @@ const Today = props => {
                         <i className="fas fa-book-dead"></i>
                         <br />
                         <NumberFormat
-                          value={sum(data.map(item => item.todayDeaths))}
+                          value={sum(data.map((item) => item.todayDeaths))}
                           thousandSeparator={true}
                           displayType={"text"}
                         />
@@ -78,8 +78,8 @@ const Today = props => {
                       <i style={{ color: "#ff3030" }}>
                         +
                         {Number(
-                          (sum(data.map(item => item.todayDeaths)) /
-                            sum(data.map(item => item.deaths))) *
+                          (sum(data.map((item) => item.todayDeaths)) /
+                            sum(data.map((item) => item.deaths))) *
                             100
                         ).toFixed(2)}
                         %
@@ -87,7 +87,7 @@ const Today = props => {
                       <br />
                       Deceased
                     </Col>
-                    <Col>
+                    <Col lg={12}>
                       <Table responsive size="sm">
                         <thead>
                           <tr>
@@ -109,7 +109,7 @@ const Today = props => {
                           </tr>
                         </thead>
                         <tbody>
-                          {sortedData.map(item => (
+                          {sortedData.map((item) => (
                             <tr>
                               <td>
                                 <Link to={{ pathname: `/${item.country}` }}>
@@ -141,7 +141,7 @@ const Today = props => {
                               <td
                                 style={{
                                   textAlign: "center",
-                                  color: "#4271b3"
+                                  color: "#4271b3",
                                 }}
                               >
                                 {item.todayCases}
@@ -149,7 +149,7 @@ const Today = props => {
                               <td
                                 style={{
                                   textAlign: "center",
-                                  color: "#ff3030"
+                                  color: "#ff3030",
                                 }}
                               >
                                 <strong>{item.todayDeaths}</strong>

@@ -5,13 +5,13 @@ import { Spinner } from "react-bootstrap";
 import { Card, Table } from "react-bootstrap";
 import SorterIcon from "../../components/SorterIcon";
 
-const WorstCountries = props => {
+const WorstCountries = (props) => {
   const [sorter, setSorter] = useState("cases");
 
   return (
     <Card className="card card-default card-demo">
       <Card.Header as="h5">10 Most Affected Countries</Card.Header>
-      <Fetch url={`https://corona.lmao.ninja/countries`}>
+      <Fetch url={`https://corona.lmao.ninja/v2/countries`}>
         {({ fetching, failed, data }) => {
           if (fetching) {
             return (
@@ -54,7 +54,7 @@ const WorstCountries = props => {
                           className="sorter-header critical"
                           onClick={() => setSorter("critical")}
                         >
-                          Serious
+                          Critical
                           <SorterIcon active={"critical" === sorter} />
                         </th>
                         <th
@@ -67,7 +67,7 @@ const WorstCountries = props => {
                       </tr>
                     </thead>
                     <tbody>
-                      {sortedData.map(item => (
+                      {sortedData.map((item) => (
                         <tr>
                           <td>
                             <Link to={{ pathname: `/${item.country}` }}>

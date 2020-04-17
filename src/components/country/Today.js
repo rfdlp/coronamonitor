@@ -7,7 +7,7 @@ import NumberFormat from "react-number-format";
 const TodayByCountry = ({ countryCode }) => {
   return (
     <Card className="card card-default card-demo">
-      <Fetch url={`https://corona.lmao.ninja/countries/${countryCode}`}>
+      <Fetch url={`https://corona.lmao.ninja/v2/countries/${countryCode}`}>
         {({ fetching, failed, data }) => {
           if (fetching) {
             return (
@@ -56,9 +56,13 @@ const TodayByCountry = ({ countryCode }) => {
                         <br /> Cases
                       </Col>
                       <Col
+                        xs={6}
+                        sm={6}
+                        md={12}
+                        lg={12}
                         className="lg-divider"
                         style={{
-                          textAlign: "center"
+                          textAlign: "center",
                         }}
                       >
                         <span className="numbers" style={{ color: "#ff3030" }}>

@@ -9,11 +9,11 @@ const SummaryByCountry = ({
   addToFavourites,
   favourites,
   removeFromFavourites,
-  countryCode
+  countryCode,
 }) => {
   return (
     <Card className="card card-default card-demo">
-      <Fetch url={`https://corona.lmao.ninja/countries/${countryCode}`}>
+      <Fetch url={`https://corona.lmao.ninja/v2/countries/${countryCode}`}>
         {({ fetching, failed, data }) => {
           if (fetching) {
             return (
@@ -103,7 +103,7 @@ const SummaryByCountry = ({
                             displayType={"text"}
                           />
                         </span>
-                        <br /> Serious
+                        <br /> Critical
                       </Col>
                       <Col style={{ textAlign: "center" }}>
                         <span className="numbers" style={{ color: "#ff3030" }}>
