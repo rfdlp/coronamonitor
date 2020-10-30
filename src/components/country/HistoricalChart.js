@@ -79,18 +79,6 @@ const HistoricalChart = ({ countryCode }) => {
             >
               1M
             </Button>
-            <Button
-              onClick={() => setDays(90)}
-              variant={days === 90 ? "info" : "outline-secondary"}
-            >
-              3M
-            </Button>
-            <Button
-              onClick={() => setDays(180)}
-              variant={days === 180 ? "info" : "outline-secondary"}
-            >
-              6M
-            </Button>
           </ButtonGroup>
           <Fetch
             url={`https://corona.lmao.ninja/v2/historical/${
@@ -128,50 +116,50 @@ const HistoricalChart = ({ countryCode }) => {
                 const keys = Object.keys(data.timeline.cases).slice(-days);
 
                 const chartData = {
-                  labels: keys.map(k => new Date(k)),
+                  labels: keys.map((k) => new Date(k)),
                   datasets: [
                     {
                       label: "Cases",
-                      data: keys.map(k => ({
+                      data: keys.map((k) => ({
                         x: new Date(k),
-                        y: data.timeline.cases[k]
+                        y: data.timeline.cases[k],
                       })),
                       borderColor: "#4271b3",
                       backgroundColor: "#4271b3",
                       borderWidth: 1,
                       pointRadius: 1,
                       fill: false,
-                      lineTension: 0
+                      lineTension: 0,
                     },
                     {
                       label: "Deceased",
-                      data: keys.map(k => ({
+                      data: keys.map((k) => ({
                         x: new Date(k),
-                        y: data.timeline.deaths[k]
+                        y: data.timeline.deaths[k],
                       })),
                       borderColor: "#ff3030",
                       backgroundColor: "#ff3030",
                       borderWidth: 1,
                       pointRadius: 1,
-                      lineTension: 0
+                      lineTension: 0,
                     },
                     {
                       yAxisID: "rate",
                       label: "Fatality Rate",
-                      data: keys.map(k => ({
+                      data: keys.map((k) => ({
                         x: new Date(k),
                         y:
                           (data.timeline.deaths[k] / data.timeline.cases[k]) *
-                          100
+                          100,
                       })),
                       borderColor: "rgba(161, 35, 10, 0.1)",
                       backgroundColor: "rgba(161, 35, 10, 0.1)",
                       borderWidth: 1,
                       pointRadius: 1,
                       lineTension: 0,
-                      hidden: true
-                    }
-                  ]
+                      hidden: true,
+                    },
+                  ],
                 };
 
                 return <Line data={chartData} options={chartOptions} />;

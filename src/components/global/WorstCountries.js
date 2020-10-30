@@ -4,6 +4,7 @@ import { Fetch } from "react-request";
 import { Spinner } from "react-bootstrap";
 import { Card, Table } from "react-bootstrap";
 import SorterIcon from "../../components/SorterIcon";
+import NumberFormat from "react-number-format";
 
 const WorstCountries = (props) => {
   const [sorter, setSorter] = useState("cases");
@@ -75,13 +76,27 @@ const WorstCountries = (props) => {
                             </Link>
                           </td>
                           <td style={{ textAlign: "center", color: "#4271b3" }}>
-                            {item.cases}
+                            <NumberFormat
+                              value={item.cases}
+                              thousandSeparator={true}
+                              displayType={"text"}
+                            />
                           </td>
                           <td style={{ textAlign: "center", color: "#f5972c" }}>
-                            {item.critical}
+                            <NumberFormat
+                              value={item.critical}
+                              thousandSeparator={true}
+                              displayType={"text"}
+                            />
                           </td>
                           <td style={{ textAlign: "center", color: "#ff3030" }}>
-                            <strong>{item.deaths}</strong>
+                            <strong>
+                              <NumberFormat
+                                value={item.deaths}
+                                thousandSeparator={true}
+                                displayType={"text"}
+                              />
+                            </strong>
                           </td>
                         </tr>
                       ))}

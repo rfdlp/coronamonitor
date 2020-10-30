@@ -7,7 +7,7 @@ import { Spinner } from "react-bootstrap";
 import { Fetch } from "react-request";
 
 const DailyNumbers = () => {
-  const [days, setDays] = useState(90);
+  const [days, setDays] = useState(30);
 
   const chartOptions = {
     tooltips: {
@@ -81,18 +81,6 @@ const DailyNumbers = () => {
             >
               1M
             </Button>
-            <Button
-              onClick={() => setDays(90)}
-              variant={days === 90 ? "info" : "outline-secondary"}
-            >
-              3M
-            </Button>
-            <Button
-              onClick={() => setDays(180)}
-              variant={days === 180 ? "info" : "outline-secondary"}
-            >
-              6M
-            </Button>
           </ButtonGroup>
           <Fetch url={`https://corona.lmao.ninja/v2/historical`}>
             {({ fetching, failed, data }) => {
@@ -124,67 +112,71 @@ const DailyNumbers = () => {
 
               if (data && data.length > 0) {
                 const keys = Object.keys(data[0].timeline.cases).slice(-days);
-                const previousIndex = item => keys.indexOf(item) - 1;
+                const previousIndex = (item) => keys.indexOf(item) - 1;
 
                 const chartData = {
-                  labels: keys.map(k => new Date(k)),
+                  labels: keys.map((k) => new Date(k)),
                   datasets: [
                     {
                       label: "Cases",
-                      data: keys.map(k => ({
+                      data: keys.map((k) => ({
                         x: new Date(k),
                         y:
-                          sum(data.map(country => country.timeline.cases[k])) -
+                          sum(
+                            data.map((country) => country.timeline.cases[k])
+                          ) -
                           sum(
                             data.map(
-                              country =>
+                              (country) =>
                                 country.timeline.cases[keys[previousIndex(k)]]
                             )
-                          )
+                          ),
                       })),
                       borderColor: "#4271b3",
                       backgroundColor: "#4271b3",
-                      borderWidth: 1
+                      borderWidth: 1,
                     },
                     {
                       label: "Deceased",
-                      data: keys.map(k => ({
+                      data: keys.map((k) => ({
                         x: new Date(k),
                         y:
-                          sum(data.map(country => country.timeline.deaths[k])) -
+                          sum(
+                            data.map((country) => country.timeline.deaths[k])
+                          ) -
                           sum(
                             data.map(
-                              country =>
+                              (country) =>
                                 country.timeline.deaths[keys[previousIndex(k)]]
                             )
-                          )
+                          ),
                       })),
                       borderColor: "#ff3030",
                       backgroundColor: "#ff3030",
-                      borderWidth: 1
+                      borderWidth: 1,
                     },
                     {
                       yAxisID: "rate",
                       label: "Fatality Rate",
-                      data: keys.map(k => {
+                      data: keys.map((k) => {
                         return {
                           x: new Date(k),
                           y:
                             (sum(
-                              data.map(country => country.timeline.deaths[k])
+                              data.map((country) => country.timeline.deaths[k])
                             ) /
                               sum(
-                                data.map(country => country.timeline.cases[k])
+                                data.map((country) => country.timeline.cases[k])
                               )) *
-                            100
+                            100,
                         };
                       }),
                       borderColor: "rgba(161, 35, 10, 0.1)",
                       backgroundColor: "rgba(161, 35, 10, 0.1)",
                       // fill: false,
-                      borderWidth: 1
-                    }
-                  ]
+                      borderWidth: 1,
+                    },
+                  ],
                 };
 
                 return <Bar data={chartData} options={chartOptions} />;

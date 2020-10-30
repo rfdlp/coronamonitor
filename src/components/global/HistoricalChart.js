@@ -7,7 +7,7 @@ import { Spinner } from "react-bootstrap";
 import { Fetch } from "react-request";
 
 const HistoricalChart = () => {
-  const [days, setDays] = useState(90);
+  const [days, setDays] = useState(30);
 
   const chartOptions = {
     tooltips: {
@@ -79,18 +79,6 @@ const HistoricalChart = () => {
               variant={days === 30 ? "info" : "outline-secondary"}
             >
               1M
-            </Button>
-            <Button
-              onClick={() => setDays(90)}
-              variant={days === 90 ? "info" : "outline-secondary"}
-            >
-              3M
-            </Button>
-            <Button
-              onClick={() => setDays(180)}
-              variant={days === 180 ? "info" : "outline-secondary"}
-            >
-              6M
             </Button>
           </ButtonGroup>
           <Fetch url={`https://corona.lmao.ninja/v2/historical`}>

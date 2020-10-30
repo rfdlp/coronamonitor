@@ -144,7 +144,11 @@ const Today = (props) => {
                                   color: "#4271b3",
                                 }}
                               >
-                                {item.todayCases}
+                                <NumberFormat
+                                  value={item.todayCases}
+                                  thousandSeparator={true}
+                                  displayType={"text"}
+                                />
                               </td>
                               <td
                                 style={{
@@ -152,7 +156,13 @@ const Today = (props) => {
                                   color: "#ff3030",
                                 }}
                               >
-                                <strong>{item.todayDeaths}</strong>
+                                <strong>
+                                  <NumberFormat
+                                    value={item.todayDeaths}
+                                    thousandSeparator={true}
+                                    displayType={"text"}
+                                  />
+                                </strong>
                               </td>
                             </tr>
                           ))}
